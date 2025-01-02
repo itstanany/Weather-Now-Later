@@ -42,6 +42,8 @@ dependencies {
   implementation(project(":features:city-input"))
   implementation(project(":features:current-weather"))
   implementation(project(":features:forecast"))
+  implementation(project(":features:no-internet"))
+  implementation(project(":features:splash"))
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
