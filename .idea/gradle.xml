@@ -11,6 +11,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/city-input" />
+            <option value="$PROJECT_DIR$/features/current-weather" />
+            <option value="$PROJECT_DIR$/features/forecast" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

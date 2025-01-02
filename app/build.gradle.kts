@@ -37,6 +37,11 @@ android {
 }
 
 dependencies {
+  implementation(project(":core"))
+  implementation(project(":data"))
+  implementation(project(":features:city-input"))
+  implementation(project(":features:current-weather"))
+  implementation(project(":features:forecast"))
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)

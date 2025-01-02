@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "Weather Now and Later"
 include(":app")
- 
+include(":core")
+include(":data")
+include(":features")
+include(":features:city-input")
+include(":features:current-weather")
+include(":features:forecast")
