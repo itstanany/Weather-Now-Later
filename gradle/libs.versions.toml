@@ -1,6 +1,8 @@
 [versions]
 agp = "8.7.3"
+coreSplashscreen = "1.0.1"
 datastorePreferences = "1.1.1"
+javaxInject = "1"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -22,7 +24,9 @@ jetbrainsKotlinJvm = "2.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
