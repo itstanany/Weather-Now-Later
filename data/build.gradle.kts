@@ -34,6 +34,7 @@ android {
 
 dependencies {
   implementation(project(":core"))
+  implementation(project(":domain"))
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.appcompat)
@@ -41,10 +42,13 @@ dependencies {
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
+  implementation(libs.kotlinx.coroutines.android)
 
   implementation(libs.hilt.android)
   ksp(libs.hilt.compiler)
 
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
+
+  implementation(libs.androidx.datastore.preferences)
 }
