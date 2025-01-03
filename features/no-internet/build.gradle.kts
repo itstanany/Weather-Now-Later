@@ -1,6 +1,7 @@
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.ksp)
   alias(libs.plugins.hilt)
   alias(libs.plugins.kotlin.serialization)
@@ -30,6 +31,10 @@ android {
   kotlinOptions {
     jvmTarget = "11"
   }
+
+  buildFeatures {
+    compose = true
+  }
 }
 
 dependencies {
@@ -46,4 +51,20 @@ dependencies {
 
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
+
+  // Compose BOM
+  implementation(platform(libs.androidx.compose.bom)) // Matches "androidx-compose-bom" in libs.versions.toml
+
+  // Compose dependencies (no version needed, managed by BOM)
+  implementation(libs.androidx.activity.compose) // Matches "androidx-activity-compose" in libs.versions.toml
+  implementation(libs.androidx.material3) // Matches "androidx-material3" in libs.versions.toml
+  implementation(libs.androidx.ui) // Matches "androidx-ui" in libs.versions.toml
+  implementation(libs.androidx.ui.tooling.preview) // Matches "androidx-ui-tooling-preview" in libs.versions.toml
+  debugImplementation(libs.androidx.ui.tooling) // Matches "androidx-ui-tooling" in libs.versions.toml
+  debugImplementation(libs.androidx.ui.test.manifest) // Matches "androidx-ui-test-manifest" in libs.versions.toml
+
+  // Testing dependencies
+  testImplementation(libs.junit) // Matches "junit" in libs.versions.toml
+  androidTestImplementation(platform(libs.androidx.compose.bom)) // Matches "androidx-compose-bom" in libs.versions.toml
+  androidTestImplementation(libs.androidx.ui.test.junit4) // Matches "androidx-ui-test-junit4" in libs.versions.toml
 }
