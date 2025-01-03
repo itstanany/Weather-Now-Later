@@ -17,6 +17,8 @@
             <option value="$PROJECT_DIR$/features/city-input" />
             <option value="$PROJECT_DIR$/features/current-weather" />
             <option value="$PROJECT_DIR$/features/forecast" />
+            <option value="$PROJECT_DIR$/features/no-internet" />
+            <option value="$PROJECT_DIR$/features/splash" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

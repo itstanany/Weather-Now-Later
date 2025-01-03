@@ -2,7 +2,9 @@ plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
-
+  alias(libs.plugins.ksp)
+  alias(libs.plugins.hilt)
+  alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -60,4 +62,10 @@ dependencies {
   testImplementation(libs.junit) // Matches "junit" in libs.versions.toml
   androidTestImplementation(platform(libs.androidx.compose.bom)) // Matches "androidx-compose-bom" in libs.versions.toml
   androidTestImplementation(libs.androidx.ui.test.junit4) // Matches "androidx-ui-test-junit4" in libs.versions.toml
+
+  implementation(libs.hilt.android)
+  ksp(libs.hilt.compiler)
+
+  implementation(libs.kotlinx.serialization.core)
+  implementation(libs.kotlinx.serialization.json)
 }
