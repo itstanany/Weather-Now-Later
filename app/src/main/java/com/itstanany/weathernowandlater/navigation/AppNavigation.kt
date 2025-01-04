@@ -89,7 +89,9 @@ fun AppNavigation() {
     }
 
     composable<NavRoutes.Forecast> {
-      ForecastScreenContainer()
+      ForecastScreenContainer(
+        viewModel = hiltViewModel()
+      )
     }
   }
 }
