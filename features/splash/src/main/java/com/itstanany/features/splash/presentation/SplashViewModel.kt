@@ -103,7 +103,7 @@ class SplashViewModel @Inject constructor(
    * and updates view state accordingly.
    */
   private suspend fun checkForCachedCity() {
-    getLastSearchedCityUseCase().catch { _ ->
+    getLastSearchedCityUseCase().catch { err ->
       _viewState.update { SplashViewState.NavigateToCityInput }
     }
       .collectLatest { lastCity ->

@@ -26,12 +26,12 @@ android {
       buildConfigField(
         "String",
         "FORECAST_API_URL",
-        "https://api.open-meteo.com/v1/forecast/"
+        "\"https://api.open-meteo.com/v1/forecast/\""
       )
       buildConfigField(
         "String",
         "GEOCODING_API_URL",
-        "https://geocoding-api.open-meteo.com/v1/"
+        "\"https://geocoding-api.open-meteo.com/v1/\""
       )
     }
 
@@ -42,12 +42,12 @@ android {
       buildConfigField(
         "String",
         "FORECAST_API_URL",
-        "https://api.open-meteo.com/v1/forecast/"
+        "\"https://api.open-meteo.com/v1/forecast/\""
       )
       buildConfigField(
         "String",
         "GEOCODING_API_URL",
-        "https://geocoding-api.open-meteo.com/v1/"
+        "\"https://geocoding-api.open-meteo.com/v1/\""
       )
     }
   }

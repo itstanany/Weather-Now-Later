@@ -8,7 +8,8 @@ coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-kotlinxCoroutinesAndroid = "1.9.0"
+kotlinxCollectionsImmutable = "0.3.8"
+kotlinxCoroutinesAndroid = "1.10.1"
 kotlinxCoroutinesCore = "1.10.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
@@ -48,6 +49,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 junit-junit = { module = "junit:junit" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test" }

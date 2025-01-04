@@ -29,6 +29,6 @@ class CityRepositoryImpl @Inject constructor(
   }
 
   override suspend fun saveLastSearchedCity(city: City) {
-    TODO("Not yet implemented")
+    return cityLocalDataSource.saveCity(city)
   }
 }

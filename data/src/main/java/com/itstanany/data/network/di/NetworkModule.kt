@@ -22,6 +22,7 @@ object NetworkModule {
     ignoreUnknownKeys = true
     coerceInputValues = true
     isLenient = true
+    explicitNulls = false
   }
 
   @Provides
@@ -36,6 +37,7 @@ object NetworkModule {
 
   @Provides
   @Singleton
+  @CityRetrofit
   fun provideCityRetrofit(
     okHttpClient: OkHttpClient,
     json: Json,
@@ -43,13 +45,14 @@ object NetworkModule {
   ): Retrofit {
     return Retrofit.Builder()
       .baseUrl(networkConfig.cityApiBaseUrl)
-      .client(okHttpClient)
       .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+      .client(okHttpClient)
       .build()
   }
 
   @Provides
   @Singleton
+  @ForecastRetrofit
   fun provideForecastRetrofit(
     okHttpClient: OkHttpClient,
     json: Json,

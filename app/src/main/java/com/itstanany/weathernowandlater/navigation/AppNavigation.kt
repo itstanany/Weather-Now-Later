@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.itstanany.core.navigation.NavRoutes
-import com.itstanany.features.city_input.CityInputScreenContainer
+import com.itstanany.features.city_input.presentation.screen.CityInputScreenContainer
 import com.itstanany.features.current_weather.CurrentWeatherScreenContainer
 import com.itstanany.features.splash.presentation.SplashScreen
 import com.itstanany.no_internet.NoInternetScreenContainer
@@ -55,6 +55,8 @@ fun AppNavigation() {
 
     composable<NavRoutes.CityInput> {
       CityInputScreenContainer(
+        viewModel = hiltViewModel(),
+        onNavigateToCurrentWeather = onNavToCurrentWeather
       )
     }
 
