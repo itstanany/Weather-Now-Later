@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.itstanany.weathernowandlater.weather_utils.TemperatureUtils
 
 @Composable
 fun TemperatureSection(
@@ -21,11 +22,11 @@ fun TemperatureSection(
     modifier = modifier.fillMaxWidth()
   ) {
     Text(
-      text = "H: $maxTemp$maxTempUnit",
+      text = "H: ${TemperatureUtils.formatTemperature(maxTemp, maxTempUnit)}",
       style = MaterialTheme.typography.displaySmall
     )
     Text(
-      text = "L: $minTemp$minTempUnit",
+      text = "L: ${TemperatureUtils.formatTemperature(minTemp, minTempUnit)}",
       style = MaterialTheme.typography.displaySmall
     )
   }

@@ -9,17 +9,25 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.itstanany.domain.weather.models.DailyWeather
-import java.time.format.DateTimeFormatter
+import com.itstanany.weathernowandlater.weather_utils.DateUtils
+import com.itstanany.weathernowandlater.weather_utils.TemperatureUtils
 
 @Composable
 fun ForecastItem(
   forecast: DailyWeather,
   modifier: Modifier = Modifier
 ) {
+  // todo: if compose stability emerges: stabilize it
+  //   read: https://developer.android.com/develop/ui/compose/performance/stability/fix
+  val date = remember(forecast.date) {
+    DateUtils.formatToWeekDayAndMonth(forecast.date)
+  }
+
   Card(
     modifier = modifier.fillMaxWidth(),
   ) {
@@ -32,7 +40,7 @@ fun ForecastItem(
     ) {
       Column {
         Text(
-          text = forecast.date.format(DateTimeFormatter.ofPattern("EEEE, MMM d")),
+          text = date,
           style = MaterialTheme.typography.titleMedium
         )
         Text(
@@ -43,11 +51,11 @@ fun ForecastItem(
 
       Column(horizontalAlignment = Alignment.End) {
         Text(
-          text = "${forecast.maxTemp}°",
+          text = TemperatureUtils.formatTemperature(forecast.maxTemp, forecast.maxTempUnit),
           style = MaterialTheme.typography.titleMedium
         )
         Text(
-          text = "${forecast.minTemp}°",
+          text = TemperatureUtils.formatTemperature(forecast.minTemp, forecast.minTempUnit),
           style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSurfaceVariant
         )
