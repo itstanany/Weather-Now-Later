@@ -1,0 +1,30 @@
+# publish-lib.yml
+name: Publish Library
+
+on:
+  workflow_call:
+
+jobs:
+  publish:
+    name: Publish to Maven Local
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Maven Local
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/build.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Publish weather-utils to Maven Local
+        run: ./gradlew :weather-utils:publishToMavenLocal

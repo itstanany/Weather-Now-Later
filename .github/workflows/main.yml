@@ -1,0 +1,23 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish-lib.yml
+
+  quality:
+    needs: publish
+    uses: ./.github/workflows/code-quality.yml
+
+  test:
+    needs: quality
+    uses: ./.github/workflows/tests.yml
+
+  build:
+    needs: test
+    uses: ./.github/workflows/build.yml
