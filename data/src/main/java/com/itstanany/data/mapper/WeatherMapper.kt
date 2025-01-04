@@ -2,6 +2,7 @@ package com.itstanany.data.mapper
 
 import com.itstanany.data.weather.models.WeatherCondition
 import com.itstanany.domain.weather.models.DailyWeather
+import java.time.LocalDate
 import javax.inject.Inject
 
 class WeatherMapper @Inject constructor() {
@@ -18,6 +19,7 @@ class WeatherMapper @Inject constructor() {
       minApparentTempUnit: String?,
       maxApparentTempUnit: String?,
       maxWindSpeedUnit: String?,
+      date: LocalDate,
     ): DailyWeather {
 
       val weatherCondition =
@@ -50,6 +52,7 @@ class WeatherMapper @Inject constructor() {
         condition = weatherCondition,
         maxWindSpeed = maxWindSpeed,
         maxWindSpeedUnit = maxWindSpeedUnit ?: "Unit Unavailable",
+        date = date,
       )
     }
   }

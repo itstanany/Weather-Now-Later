@@ -1,5 +1,7 @@
 package com.itstanany.domain.weather.models
 
+import java.time.LocalDate
+
 data class DailyWeather(
   val maxTemp: Double,
   val maxTempUnit: String,
@@ -12,4 +14,5 @@ data class DailyWeather(
   val condition: WeatherCondition,
   val maxWindSpeed: Double?,
   val maxWindSpeedUnit: String?,
+  val date: LocalDate
 )
