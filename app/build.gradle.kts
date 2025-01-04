@@ -33,6 +33,8 @@ android {
         "GEOCODING_API_URL",
         "\"https://geocoding-api.open-meteo.com/v1/\""
       )
+
+      enableUnitTestCoverage = true
     }
 
     release {
@@ -62,6 +64,10 @@ android {
   buildFeatures {
     compose = true
     buildConfig = true
+  }
+  lint {
+    abortOnError = true
+    warningsAsErrors = false
   }
 }
 
