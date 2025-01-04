@@ -20,8 +20,5 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Publish weather-utils to Maven Local
-        run: ./gradlew :weather-utils:publishToMavenLocal
-
       - name: Run Lint
         run: ./gradlew lint
