@@ -67,9 +67,17 @@ fun CurrentWeatherScreenContainer(
 
         else -> {
           WeatherContent(
-            viewState = viewState,
-            onForecastClick = onNavigateToForecast,
+            condition = viewState.condition,
             conditionIconRes = conditionIconRes,
+            maxTemp = viewState.maxTemp,
+            maxTempUnit = viewState.maxTempUnit,
+            minTemp = viewState.minTemp,
+            minTempUnit = viewState.minTempUnit,
+            feelsLikeTemp = viewState.maxApparentTemp,
+            feelsLikeTempUnit = viewState.maxApparentTempUnit,
+            windSpeed = viewState.maxWindSpeed,
+            windSpeedUnit = viewState.maxWindSpeedUnit,
+            onForecastClick = onNavigateToForecast
           )
         }
       }

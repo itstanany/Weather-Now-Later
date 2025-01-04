@@ -15,28 +15,36 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.itstanany.domain.weather.models.WeatherCondition
 import com.itstanany.features.current_weather.R
-import com.itstanany.features.current_weather.screen.CurrentWeatherState
 
 @Composable
 fun WeatherContent(
-  viewState: CurrentWeatherState,
-  onForecastClick: () -> Unit,
+  condition: WeatherCondition?,
   conditionIconRes: Any?,
+  maxTemp: Double,
+  maxTempUnit: String,
+  minTemp: Double,
+  minTempUnit: String,
+  feelsLikeTemp: Double?,
+  feelsLikeTempUnit: String?,
+  windSpeed: Double?,
+  windSpeedUnit: String?,
+  onForecastClick: () -> Unit,
   modifier: Modifier = Modifier
 ) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = modifier.fillMaxWidth()
   ) {
-    viewState.condition?.let { condition ->
+    condition?.let {
       AsyncImage(
         model = conditionIconRes,
-        contentDescription = condition.label,
+        contentDescription = it.label,
         modifier = Modifier.size(100.dp)
       )
       Text(
-        text = condition.label,
+        text = it.label,
         style = MaterialTheme.typography.headlineMedium,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
@@ -46,19 +54,19 @@ fun WeatherContent(
     Spacer(modifier = Modifier.height(16.dp))
 
     TemperatureSection(
-      maxTemp = viewState.maxTemp,
-      maxTempUnit = viewState.maxTempUnit,
-      minTemp = viewState.minTemp,
-      minTempUnit = viewState.minTempUnit
+      maxTemp = maxTemp,
+      maxTempUnit = maxTempUnit,
+      minTemp = minTemp,
+      minTempUnit = minTempUnit
     )
 
     Spacer(modifier = Modifier.height(24.dp))
 
     WeatherDetailsSection(
-      feelsLikeTemp = viewState.maxApparentTemp,
-      windSpeed = viewState.maxWindSpeed,
-      feelsLikeTempUnit = viewState.maxApparentTempUnit,
-      windSpeedUnit = viewState.maxWindSpeedUnit,
+      feelsLikeTemp = feelsLikeTemp,
+      windSpeed = windSpeed,
+      feelsLikeTempUnit = feelsLikeTempUnit,
+      windSpeedUnit = windSpeedUnit,
     )
 
     Spacer(modifier = Modifier.height(32.dp))
