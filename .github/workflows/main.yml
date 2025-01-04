@@ -7,70 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
-  code-checks:
-    name: Code Quality Checks
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  quality:
+    uses: ./.github/workflows/code-quality.yml
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Run Lint
-        run: ./gradlew lint
-
-  tests:
-    name: Run Tests
-    needs: code-checks
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Run Unit Tests
-        run: ./gradlew test
+  test:
+    needs: quality
+    uses: ./.github/workflows/tests.yml
 
   build:
-    name: Build Debug APK
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Publish weather-utils to Maven Local
-        run: ./gradlew :weather-utils:publishToMavenLocal
-
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+    needs: test
+    uses: ./.github/workflows/build.yml
