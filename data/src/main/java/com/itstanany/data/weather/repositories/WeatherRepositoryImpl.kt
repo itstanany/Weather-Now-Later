@@ -5,8 +5,7 @@ import com.itstanany.data.weather.remote.WeatherRemoteDataSource
 import com.itstanany.domain.city.models.City
 import com.itstanany.domain.weather.models.DailyWeather
 import com.itstanany.domain.weather.repositories.WeatherRepository
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.itstanany.weathernowandlater.weather_utils.DateUtils
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
@@ -18,6 +17,7 @@ class WeatherRepositoryImpl @Inject constructor(
       || response.daily.temperature2mMax?.firstOrNull() == null
       || response.daily.temperature2mMin?.firstOrNull() == null
       || response.dailyUnits == null
+      || response.daily.time?.firstOrNull() == null
     ) {
       throw Exception("Invalid response")
     }
@@ -33,7 +33,7 @@ class WeatherRepositoryImpl @Inject constructor(
       minApparentTempUnit = response.dailyUnits.apparentTemperatureMin,
       maxApparentTempUnit = response.dailyUnits.apparentTemperatureMax,
       maxWindSpeedUnit = response.dailyUnits.windSpeed10mMax,
-      date = LocalDate.parse(response.daily.time?.first()!!, DateTimeFormatter.ISO_DATE) ,
+      date = DateUtils.parseDate(response.daily.time.first()!!),
     )
     return dailyWeather
   }
@@ -61,7 +61,7 @@ class WeatherRepositoryImpl @Inject constructor(
         minApparentTempUnit = response.dailyUnits.apparentTemperatureMin,
         maxApparentTempUnit = response.dailyUnits.apparentTemperatureMax,
         maxWindSpeedUnit = response.dailyUnits.windSpeed10mMax,
-        date = LocalDate.parse(response.daily.time?.get(index)!!, DateTimeFormatter.ISO_DATE) ,
+        date = DateUtils.parseDate(response.daily.time?.get(index)!!),
       )
     }
     return dailyWeatherForecast
