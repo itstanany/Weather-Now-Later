@@ -17,7 +17,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
 
       - name: Cache Maven Local
         uses: actions/cache@v3
