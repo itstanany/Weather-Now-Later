@@ -17,18 +17,20 @@ import com.itstanany.no_internet.NoInternetScreenContainer
 fun AppNavigation() {
   val navController = rememberNavController()
 
-  val onNavToCityInputSingleInstance: () -> Unit = remember(navController) {
+  val onNavToCityInputSingleTop: () -> Unit = remember(navController) {
     {
       navController.navigate(NavRoutes.CityInput) {
-        popUpTo(NavRoutes.Splash) { inclusive = true }
+        popUpTo(0) { inclusive = true }
+        launchSingleTop = true
       }
     }
   }
 
-  val onNavToCurrentWeatherSingleInstance: () -> Unit = remember(navController) {
+  val onNavToCurrentWeatherSingleTop: () -> Unit = remember(navController) {
     {
       navController.navigate(NavRoutes.CurrentWeather) {
-        popUpTo(NavRoutes.Splash) { inclusive = true }
+        popUpTo(0) { inclusive = true }
+        launchSingleTop = true
       }
     }
   }
@@ -60,8 +62,8 @@ fun AppNavigation() {
     composable<NavRoutes.Splash> {
       SplashScreen(
         viewModel = hiltViewModel(),
-        onNavigateToCityInput = onNavToCityInputSingleInstance,
-        onNavigateToCurrentWeather = onNavToCurrentWeatherSingleInstance,
+        onNavigateToCityInput = onNavToCityInputSingleTop,
+        onNavigateToCurrentWeather = onNavToCurrentWeatherSingleTop,
         onNavigateToNoInternet = onNavToNoInternet
       )
     }
@@ -69,7 +71,7 @@ fun AppNavigation() {
     composable<NavRoutes.CityInput> {
       CityInputScreenContainer(
         viewModel = hiltViewModel(),
-        onNavigateToCurrentWeather = onNavToCurrentWeatherSingleInstance
+        onNavigateToCurrentWeather = onNavToCurrentWeatherSingleTop
       )
     }
 
