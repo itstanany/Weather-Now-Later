@@ -16,10 +16,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
+          cache: maven
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Cache Maven Local
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/build.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Publish weather-utils to Maven Local
         run: ./gradlew :weather-utils:publishToMavenLocal
