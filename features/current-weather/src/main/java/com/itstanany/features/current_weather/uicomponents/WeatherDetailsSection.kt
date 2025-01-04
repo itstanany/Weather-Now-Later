@@ -10,9 +10,9 @@ import com.itstanany.weathernowandlater.weather_utils.TemperatureUtils
 fun WeatherDetailsSection(
   feelsLikeTemp: Double?,
   windSpeed: Double?,
+  modifier: Modifier = Modifier,
   feelsLikeTempUnit: String? = "",
-  windSpeedUnit: String? = "",
-  modifier: Modifier = Modifier
+  windSpeedUnit: String? = ""
 ) {
   Column(modifier = modifier) {
     feelsLikeTemp?.let { temp ->
