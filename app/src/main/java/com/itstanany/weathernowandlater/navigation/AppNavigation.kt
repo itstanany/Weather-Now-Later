@@ -55,6 +55,15 @@ fun AppNavigation() {
     }
   }
 
+  val onNavToFirstScreen: () -> Unit = remember(navController) {
+    {
+      navController.navigate(NavRoutes.Splash) {
+        popUpTo(0) { inclusive = true }
+        launchSingleTop = true
+      }
+    }
+  }
+
   NavHost(
     navController = navController,
     startDestination = NavRoutes.Splash
@@ -85,6 +94,7 @@ fun AppNavigation() {
 
     composable<NavRoutes.NoInternet> {
       NoInternetScreenContainer(
+        onRetry = onNavToFirstScreen,
       )
     }
 
