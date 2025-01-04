@@ -22,11 +22,36 @@ android {
   }
 
   buildTypes {
+    debug {
+      buildConfigField(
+        "String",
+        "FORECAST_API_URL",
+        "\"https://api.open-meteo.com/v1/forecast/\""
+      )
+      buildConfigField(
+        "String",
+        "GEOCODING_API_URL",
+        "\"https://geocoding-api.open-meteo.com/v1/\""
+      )
+    }
+
     release {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+      buildConfigField(
+        "String",
+        "FORECAST_API_URL",
+        "\"https://api.open-meteo.com/v1/forecast/\""
+      )
+      buildConfigField(
+        "String",
+        "GEOCODING_API_URL",
+        "\"https://geocoding-api.open-meteo.com/v1/\""
+      )
     }
   }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -36,6 +61,7 @@ android {
   }
   buildFeatures {
     compose = true
+    buildConfig = true
   }
 }
 

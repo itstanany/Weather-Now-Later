@@ -2,7 +2,7 @@ package com.itstanany.data.network.repositories
 
 import android.content.Context
 import com.itstanany.core.network.NetworkUtils
-import com.itstanany.data.utils.Utils.safeCall
+import com.itstanany.domain.common.Utils.safeCall
 import com.itstanany.domain.common.Result
 import com.itstanany.domain.network.repositories.NetworkRepository
 import dagger.hilt.android.qualifiers.ApplicationContext

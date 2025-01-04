@@ -8,13 +8,13 @@ import com.itstanany.domain.common.Result
 import com.itstanany.domain.common.Utils.safeCall
 import javax.inject.Inject
 
-class SaveLastSearchedCityUseCase @Inject constructor(
+class SearchCitiesUseCase @Inject constructor(
   private val cityRepository: CityRepository,
   dispatcher: DispatcherProvider,
-  ): BaseUseCaseWithParams<City, Unit>(dispatcher.io()) {
-  override suspend fun execute(params: City): Result<Unit> {
+) : BaseUseCaseWithParams<String, List<City>>(dispatcher.io()) {
+  override suspend fun execute(params: String): Result<List<City>> {
     return safeCall {
-      cityRepository.saveLastSearchedCity(params)
+      cityRepository.getAllCities(params)
     }
   }
 }

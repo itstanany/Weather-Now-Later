@@ -1,25 +1,23 @@
 package com.itstanany.data.city.di
 
-import com.itstanany.data.city.local.CityLocalDataSource
-import com.itstanany.data.city.local.PreferencesCityLocalDataSource
-import com.itstanany.data.city.repositories.CityRepositoryImpl
-import com.itstanany.domain.city.repositories.CityRepository
-import dagger.Binds
+import com.itstanany.data.city.remote.CityRemoteApiService
+import com.itstanany.data.network.di.CityRetrofit
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class CityModule {
+object CityModule {
 
-  @Binds
-  abstract fun bindCityRepository(
-    cityRepositoryImpl: CityRepositoryImpl,
-  ): CityRepository
-
-  @Binds
-  abstract fun bindCityLocalDataSource(
-    cityLocalDataSourceImpl: PreferencesCityLocalDataSource,
-  ): CityLocalDataSource
+  @Provides
+  @Singleton
+  fun provideCityRemoteApiService(
+    @CityRetrofit retrofit: Retrofit,
+  ): CityRemoteApiService {
+    return retrofit.create(CityRemoteApiService::class.java)
+  }
 }

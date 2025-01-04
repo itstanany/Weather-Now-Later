@@ -51,4 +51,10 @@ dependencies {
   implementation(libs.kotlinx.serialization.json)
 
   implementation(libs.androidx.datastore.preferences)
+
+  // Retrofit
+  implementation(libs.retrofit)
+  implementation(libs.okhttp)
+
+  implementation(libs.retrofit2.kotlinx.serialization.converter)
 }
