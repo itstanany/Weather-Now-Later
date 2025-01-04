@@ -1,4 +1,4 @@
-package com.itstanany.features.splash.presentation
+package com.itstanany.features.splash.presentation.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

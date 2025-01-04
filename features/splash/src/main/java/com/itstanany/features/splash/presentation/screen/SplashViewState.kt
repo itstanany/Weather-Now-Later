@@ -1,4 +1,4 @@
-package com.itstanany.features.splash.presentation
+package com.itstanany.features.splash.presentation.screen
 
 /**
  * Represents the various states of the splash screen.

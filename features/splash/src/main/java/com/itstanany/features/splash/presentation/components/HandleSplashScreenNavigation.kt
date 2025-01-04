@@ -8,7 +8,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalContext
-import com.itstanany.features.splash.presentation.SplashViewState
+import com.itstanany.features.splash.presentation.screen.SplashViewState
 
 
 /**

@@ -1,4 +1,4 @@
-package com.itstanany.features.splash.presentation
+package com.itstanany.features.splash.presentation.screen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

@@ -1,4 +1,4 @@
-package com.itstanany.features.splash.presentation
+package com.itstanany.features.splash.presentation.screen
 
 sealed class SplashIntent {
   data object CheckInitialState : SplashIntent()
