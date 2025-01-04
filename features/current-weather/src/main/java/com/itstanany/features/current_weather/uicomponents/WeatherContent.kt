@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -73,9 +74,17 @@ fun WeatherContent(
 
     Button(
       onClick = onForecastClick,
+      colors = ButtonDefaults.buttonColors(
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary
+      ),
       modifier = Modifier.fillMaxWidth()
     ) {
-      Text(stringResource(R.string.view_7_day_forecast))
+      Text(
+        text = stringResource(R.string.view_7_day_forecast),
+        style = MaterialTheme.typography.labelLarge
+      )
     }
+
   }
 }

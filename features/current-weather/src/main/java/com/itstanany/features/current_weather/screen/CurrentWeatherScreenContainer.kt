@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -16,7 +19,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.itstanany.domain.weather.models.WeatherCondition
 import com.itstanany.features.current_weather.R
 import com.itstanany.features.current_weather.uicomponents.CurrentWeatherTopBar
-import com.itstanany.features.current_weather.uicomponents.ErrorMessage
 import com.itstanany.features.current_weather.uicomponents.WeatherContent
 
 @Composable
@@ -27,9 +29,11 @@ fun CurrentWeatherScreenContainer(
   modifier: Modifier = Modifier
 ) {
   val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+
   LaunchedEffect(Unit) {
     viewModel.handleScreenOpened()
   }
+
   val conditionIconRes = remember(viewState.condition) {
     when (viewState.condition) {
       is WeatherCondition.Cloudy -> R.drawable.cloud
@@ -38,49 +42,59 @@ fun CurrentWeatherScreenContainer(
       null -> null
     }
   }
-  Column(
+
+  Surface(
+    color = MaterialTheme.colorScheme.background,
     modifier = modifier.fillMaxSize()
   ) {
-    CurrentWeatherTopBar(
-      city = viewState.city,
-      onSearchClick = onNavigateToSearch
-    )
-
-    Box(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)
+    Column(
+      modifier = Modifier.fillMaxSize()
     ) {
-      when {
-        viewState.isLoading -> {
-          CircularProgressIndicator(
-            modifier = Modifier.align(Alignment.Center)
-          )
-        }
+      CurrentWeatherTopBar(
+        city = viewState.city,
+        onSearchClick = onNavigateToSearch
+      )
 
-        viewState.error != null -> {
-          ErrorMessage(
-            message = viewState.error!!,
-            modifier = Modifier.align(Alignment.Center)
-          )
-        }
+      Box(
+        modifier = Modifier
+          .fillMaxSize()
+          .padding(16.dp)
+      ) {
+        when {
+          viewState.isLoading -> {
+            CircularProgressIndicator(
+              color = MaterialTheme.colorScheme.primary,
+              modifier = Modifier.align(Alignment.Center)
+            )
+          }
 
-        else -> {
-          WeatherContent(
-            condition = viewState.condition,
-            conditionIconRes = conditionIconRes,
-            maxTemp = viewState.maxTemp,
-            maxTempUnit = viewState.maxTempUnit,
-            minTemp = viewState.minTemp,
-            minTempUnit = viewState.minTempUnit,
-            feelsLikeTemp = viewState.maxApparentTemp,
-            feelsLikeTempUnit = viewState.maxApparentTempUnit,
-            windSpeed = viewState.maxWindSpeed,
-            windSpeedUnit = viewState.maxWindSpeedUnit,
-            onForecastClick = onNavigateToForecast
-          )
+          viewState.error != null -> {
+            Text(
+              text = viewState.error!!,
+              style = MaterialTheme.typography.bodyLarge,
+              color = MaterialTheme.colorScheme.error,
+              modifier = Modifier.align(Alignment.Center)
+            )
+          }
+
+          else -> {
+            WeatherContent(
+              condition = viewState.condition,
+              conditionIconRes = conditionIconRes,
+              maxTemp = viewState.maxTemp,
+              maxTempUnit = viewState.maxTempUnit,
+              minTemp = viewState.minTemp,
+              minTempUnit = viewState.minTempUnit,
+              feelsLikeTemp = viewState.maxApparentTemp,
+              feelsLikeTempUnit = viewState.maxApparentTempUnit,
+              windSpeed = viewState.maxWindSpeed,
+              windSpeedUnit = viewState.maxWindSpeedUnit,
+              onForecastClick = onNavigateToForecast
+            )
+          }
         }
       }
     }
   }
 }
+

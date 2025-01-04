@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -48,32 +50,38 @@ fun CityInputScreenContainer(
       Unit
     }
   }
+
   val onClearClick = remember(viewModel) {
     { viewModel.handleSearchQueryChanged("") }
   }
 
-  Column(
+  Surface(
+    color = MaterialTheme.colorScheme.background,
     modifier = modifier.fillMaxSize()
   ) {
-    CityInputTopBar(
-      onNavigateUp = onNavigateUp
-    )
-
-    SearchBar(
-      query = viewState.searchQuery,
-      onQueryChange = viewModel::handleSearchQueryChanged,
-      onClearClick = onClearClick,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)
-    )
-
-    SearchResultsBody(
-      isLoading = viewState.isLoading,
-      searchResults = viewState.searchResults,
-      onCityClick = onCitySelected,
-      errorMessage = viewState.errorMessage,
+    Column(
       modifier = Modifier.fillMaxSize()
-    )
+    ) {
+      CityInputTopBar(
+        onNavigateUp = onNavigateUp
+      )
+
+      SearchBar(
+        query = viewState.searchQuery,
+        onQueryChange = viewModel::handleSearchQueryChanged,
+        onClearClick = onClearClick,
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(16.dp)
+      )
+
+      SearchResultsBody(
+        isLoading = viewState.isLoading,
+        searchResults = viewState.searchResults,
+        onCityClick = onCitySelected,
+        errorMessage = viewState.errorMessage,
+        modifier = Modifier.fillMaxSize()
+      )
+    }
   }
 }
