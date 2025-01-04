@@ -39,6 +39,7 @@ android {
 dependencies {
   implementation(project(":core"))
   implementation(project(":data"))
+  implementation(project(":domain"))
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.appcompat)
@@ -68,4 +69,7 @@ dependencies {
 
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
+
+  implementation(libs.coil.compose)
+
 }

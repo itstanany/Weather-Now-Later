@@ -14,4 +14,7 @@ sealed class NavRoutes {
 
   @Serializable
   data object NoInternet : NavRoutes()
+
+  @Serializable
+  data object Forecast : NavRoutes()
 }

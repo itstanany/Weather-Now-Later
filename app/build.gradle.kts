@@ -26,7 +26,7 @@ android {
       buildConfigField(
         "String",
         "FORECAST_API_URL",
-        "\"https://api.open-meteo.com/v1/forecast/\""
+        "\"https://api.open-meteo.com/v1/\""
       )
       buildConfigField(
         "String",
@@ -42,7 +42,7 @@ android {
       buildConfigField(
         "String",
         "FORECAST_API_URL",
-        "\"https://api.open-meteo.com/v1/forecast/\""
+        "\"https://api.open-meteo.com/v1/\""
       )
       buildConfigField(
         "String",

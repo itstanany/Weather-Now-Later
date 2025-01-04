@@ -8,7 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.itstanany.core.navigation.NavRoutes
 import com.itstanany.features.city_input.presentation.screen.CityInputScreenContainer
-import com.itstanany.features.current_weather.CurrentWeatherScreenContainer
+import com.itstanany.features.current_weather.screen.CurrentWeatherScreenContainer
+import com.itstanany.features.forecast.presentation.screen.ForecastScreenContainer
 import com.itstanany.features.splash.presentation.SplashScreen
 import com.itstanany.no_internet.NoInternetScreenContainer
 
@@ -16,7 +17,7 @@ import com.itstanany.no_internet.NoInternetScreenContainer
 fun AppNavigation() {
   val navController = rememberNavController()
 
-  val onNavToCityInput: () -> Unit = remember(navController) {
+  val onNavToCityInputSingleInstance: () -> Unit = remember(navController) {
     {
       navController.navigate(NavRoutes.CityInput) {
         popUpTo(NavRoutes.Splash) { inclusive = true }
@@ -24,11 +25,17 @@ fun AppNavigation() {
     }
   }
 
-  val onNavToCurrentWeather: () -> Unit = remember(navController) {
+  val onNavToCurrentWeatherSingleInstance: () -> Unit = remember(navController) {
     {
       navController.navigate(NavRoutes.CurrentWeather) {
         popUpTo(NavRoutes.Splash) { inclusive = true }
       }
+    }
+  }
+
+  val onNavigateToCityInput = remember(navController) {
+    {
+      navController.navigate(NavRoutes.CityInput)
     }
   }
 
@@ -40,6 +47,12 @@ fun AppNavigation() {
     }
   }
 
+  val onNavToForecast: () -> Unit = remember(navController) {
+    {
+      navController.navigate(NavRoutes.Forecast)
+    }
+  }
+
   NavHost(
     navController = navController,
     startDestination = NavRoutes.Splash
@@ -47,8 +60,8 @@ fun AppNavigation() {
     composable<NavRoutes.Splash> {
       SplashScreen(
         viewModel = hiltViewModel(),
-        onNavigateToCityInput = onNavToCityInput,
-        onNavigateToCurrentWeather = onNavToCurrentWeather,
+        onNavigateToCityInput = onNavToCityInputSingleInstance,
+        onNavigateToCurrentWeather = onNavToCurrentWeatherSingleInstance,
         onNavigateToNoInternet = onNavToNoInternet
       )
     }
@@ -56,17 +69,25 @@ fun AppNavigation() {
     composable<NavRoutes.CityInput> {
       CityInputScreenContainer(
         viewModel = hiltViewModel(),
-        onNavigateToCurrentWeather = onNavToCurrentWeather
+        onNavigateToCurrentWeather = onNavToCurrentWeatherSingleInstance
       )
     }
 
     composable<NavRoutes.CurrentWeather> {
-      CurrentWeatherScreenContainer()
+      CurrentWeatherScreenContainer(
+        viewModel = hiltViewModel(),
+        onNavigateToForecast = onNavToForecast,
+        onNavigateToSearch = onNavigateToCityInput,
+      )
     }
 
     composable<NavRoutes.NoInternet> {
       NoInternetScreenContainer(
       )
+    }
+
+    composable<NavRoutes.Forecast> {
+      ForecastScreenContainer()
     }
   }
 }
