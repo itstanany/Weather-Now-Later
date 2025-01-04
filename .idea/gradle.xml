@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/features/forecast" />
             <option value="$PROJECT_DIR$/features/no-internet" />
             <option value="$PROJECT_DIR$/features/splash" />
+            <option value="$PROJECT_DIR$/weather-utils" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

@@ -1,6 +1,7 @@
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
+  id("maven-publish")
 }
 
 android {
@@ -27,6 +28,28 @@ android {
   kotlinOptions {
     jvmTarget = "11"
   }
+
+  publishing {
+    singleVariant("release") {
+      withSourcesJar()
+      withJavadocJar()
+    }
+  }
+}
+
+
+publishing {
+  publications {
+    register<MavenPublication>("release") {
+      groupId = "com.itstanany.weathernowandlater"
+      artifactId = "weather-utils"
+      version = "1.0.0"
+
+      afterEvaluate {
+        from(components["release"])
+      }
+    }
+  }
 }
 
 dependencies {
@@ -38,4 +61,8 @@ dependencies {
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
+}
+
+tasks.register("publishToLocalMaven") {
+  dependsOn("publishReleasePublicationToMavenLocal")
 }
