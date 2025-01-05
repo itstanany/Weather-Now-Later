@@ -39,6 +39,34 @@ A modern Android weather application showcasing clean architecture and best prac
 | **`features:splash`** | `domain`,                                     | Splash Screen to either to city input or current weather screen. Implements UI and ViewModel logic (MVI).    |
 
 
+## Weather Utils Library
+
+A modular library providing essential weather data handling utilities.
+
+* Published to local Maven, review [commit](https://github.com/itstanany/Weather-Now-Later/commit/50acc6c58379194bc0466faf1dae11b9f2fdeecc) of publishing implementation
+
+### Features
+- Temperature formatting and unit conversion
+- Date parsing and formatting for weather data
+
+### Integration
+```gradle
+implementation 'com.itstanany:weather-utils:1.0.0'
+```
+
+### Example Usage
+```kotlin
+// Format temperature
+val temp = TemperatureUtils.formatTemperature(23.5, "°C")
+
+// Parse dates
+val date = DateUtils.parseDate("2024-01-05")
+
+```
+
+Built with comprehensive test coverage and clean architecture principles, this library simplifies weather data handling across the application.
+
+
 ### Core Components
 - Repository pattern for data management
 - Custom mappers for data transformation
