@@ -2,24 +2,136 @@
 
 A modern Android weather application showcasing clean architecture and best practices in Android development.
 
+<p align="center">
+  <img src="docs/ezgif.com-animated-gif-maker.gif" width="42%" height="70%"/>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <img src="docs/ezgif.com-animated-gif-maker -dark.gif" width="42%" height="70%"/>
+</p>
+
+
 ## Features
 - Current weather conditions
 - 7-day weather forecast
 - City search functionality
 - Last searched city persistence
+- Dark Mode Support
 
 ## Technical Stack & Architecture
 
 ### Clean Architecture
-- **Domain Layer**: Business logic and entities
-- **Data Layer**: Repositories and data sources
-- **Presentation Layer**: ViewModels and UI components
+- **Domain Layer**: Business logic and entities(Use case - repository Interface, domain entity)
+- **Data Layer**: Repositories implementation and data sources (local and remote)
+- **Presentation Layer**: MVVM and MVI presentation architecture patterns (Uni Directional Data Flow)
 
-### Key Technologies
-- Kotlin Coroutines & Flow for reactive programming
-- Hilt for dependency injection
-- StateFlow for UI state management
-- MockK & JUnit4 for testing
+| Architecture Pattern | Key Benefits | Why Used |
+|---------------------|--------------|-----------|
+| MVVM | - Clear separation of concerns<br>- Lifecycle-aware components<br>- Easy unit testing<br>| - Enables isolated testing of ViewModels<br>- Handles Android lifecycle automatically<br>- Provides clean data flow patterns<br>- Works well with Kotlin coroutines |
+| MVI | - Immutable state management<br>- Single source of truth<br>- Predictable data flow<br>- Clear user intent handling<br>- Better debugging | - Prevents state inconsistencies<br>- Makes testing more reliable<br>- Simplifies state management<br>- Improves error tracking |
+
+
+
+## Object-Oriented Programming Implementation
+
+The project implements core OOP principles through a clean and maintainable architecture:
+
+### Encapsulation
+- ViewModels encapsulate UI state and business logic
+- Repositories encapsulate data operations and transformations
+- Custom mappers handle data conversion between layers
+- Private properties and methods control access to internal state
+
+### Abstraction
+- Interfaces define contracts between layers (NetworkConfig, WeatherRepository)
+- Abstract base classes provide common functionality (BaseUseCase)
+- Use cases abstract business logic implementation details
+
+### Inheritance
+- ViewModels inherit from Android ViewModel class.
+- Base classes like BaseUseCase are reused across multiple use cases in the domain module.
+This allows shared logic (e.g., coroutine dispatching) to be inherited and reused, reducing duplication.
+
+### Polymorphism
+- Weather conditions implemented as sealed classes
+- Dependency injection (e.g., through Dagger Hilt) allows polymorphic behavior: The domain layer depends on abstractions (e.g., WeatherRepository), while different implementations (e.g., WeatherRepositoryImpl) can be injected at runtime. This ensures flexibility and extensibility, enabling easy swapping of implementations.
+
+
+
+## SOLID Principles Implementation
+
+The project demonstrates adherence to SOLID principles through practical implementations:
+
+### Single Responsibility Principle (SRP)
+- WeatherMapper handles only data mapping
+- Each ViewModel manages single screen state and logic
+
+### Open/Closed Principle (OCP)
+```kotlin
+sealed class WeatherCondition {
+    data class Sunny(val description: String) : WeatherCondition()
+    data class Cloudy(val description: String) : WeatherCondition()
+    data class Rainy(val description: String) : WeatherCondition()
+}
+```
+Weather conditions are extensible without modifying existing code.
+
+### Liskov Substitution Principle (LSP)
+```kotlin
+interface WeatherRepository {
+    suspend fun getCurrentWeather(city: City): DailyWeather
+    suspend fun getForecast(city: City): List<DailyWeather>
+}
+
+class WeatherRepositoryImpl @Inject constructor(
+    private val weatherRemoteDataSource: WeatherRemoteDataSource
+) : WeatherRepository
+```
+Repository implementations can be substituted without affecting functionality.
+
+### Interface Segregation Principle (ISP)
+```kotlin
+interface NetworkConfig {
+    val forecastApiBaseUrl: String
+    val cityApiBaseUrl: String
+}
+```
+Interfaces are kept focused and minimal.
+
+### Dependency Inversion Principle (DIP)
+```kotlin
+interface WeatherRemoteDataSource {
+    suspend fun getForecast(latitude: Float, longitude: Float): WeatherForecastResponse
+}
+
+class WeatherRemoteDataSourceImpl @Inject constructor(
+    private val apiService: WeatherApiService
+) : WeatherRemoteDataSource
+```
+High-level modules depend on abstractions rather than concrete implementations.
+
+These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components[2][3].
+
+
+## Technology Stack
+
+### UI & Design
+- **Jetpack Compose**: Modern declarative UI toolkit for native Android development, chosen for its improved productivity and modern UI development approach
+- **Material Theming**: Consistent and customizable design system that provides a polished user experience
+
+### Architecture & State Management
+- **ViewModel**: Lifecycle-aware state holder for managing UI data and surviving configuration changes
+- **Kotlin Flows**: Reactive stream processing for handling asynchronous data sequences and UI state updates
+- **Kotlin Coroutines**: Simplified asynchronous programming with improved readability and error handling
+
+### Dependency Injection
+- **Dagger Hilt**: Simplified dependency injection built on top of Dagger, reducing boilerplate and improving build times
+
+### Local Storage
+- **DataStore**: Modern replacement for SharedPreferences, providing type-safe data storage with Kotlin Coroutines support
+
+### Testing
+- **MockK**: Kotlin-first mocking library that provides elegant DSL for test mocking
+- **JUnit**: Industry-standard testing framework for unit testing with comprehensive assertion capabilities
+
 
 ## Project Structure
 
