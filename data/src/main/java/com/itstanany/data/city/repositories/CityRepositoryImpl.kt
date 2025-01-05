@@ -11,6 +11,7 @@ import javax.inject.Inject
 class CityRepositoryImpl @Inject constructor(
   private val cityLocalDataSource: CityLocalDataSource,
   private val cityRemoteDataSource: CityRemoteDataSource,
+  private val cityMapper: CityMapper,
 ) : CityRepository {
   override suspend fun getAllCities(
     cityName: String,
@@ -18,7 +19,7 @@ class CityRepositoryImpl @Inject constructor(
     val result = cityRemoteDataSource.searchCities(cityName)
     val cities = result.mapNotNull {
       it.takeIf { it.latitude != null && it.longitude != null }?.let { validCityDto ->
-        CityMapper.mapToDomain(validCityDto)
+        cityMapper.mapToDomain(validCityDto)
       }
     }
     return cities

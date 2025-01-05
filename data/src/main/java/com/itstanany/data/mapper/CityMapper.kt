@@ -3,17 +3,24 @@ package com.itstanany.data.mapper
 import com.itstanany.data.city.models.CityResultDto
 import com.itstanany.domain.city.models.City
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CityMapper @Inject constructor() {
-  companion object {
-    fun mapToDomain(dto: CityResultDto): City {
-      return City(
-        name = dto.name.orEmpty(),
-        country = dto.country.orEmpty(),
-        longitude = dto.longitude?.toFloat() ?: 0f,
-        latitude = dto.latitude?.toFloat() ?: 0f,
-        id = dto.id ?: 0
-      )
+  fun mapToDomain(dto: CityResultDto): City? {
+    // Return null if required fields are missing
+    if (dto.latitude == null || dto.longitude == null ||
+      dto.name.isNullOrEmpty() || dto.country.isNullOrEmpty()) {
+      return null
     }
+
+    return City(
+      name = dto.name,
+      country = dto.country,
+      longitude = dto.longitude.toFloat(),
+      latitude = dto.latitude.toFloat(),
+      id = dto.id ?: 0
+    )
   }
 }
+

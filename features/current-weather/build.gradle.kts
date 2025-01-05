@@ -19,6 +19,9 @@ android {
   }
 
   buildTypes {
+    debug {
+      enableUnitTestCoverage = true
+    }
     release {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -71,5 +74,8 @@ dependencies {
   implementation(libs.kotlinx.serialization.json)
 
   implementation(libs.coil.compose)
+
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.mockk)
 
 }

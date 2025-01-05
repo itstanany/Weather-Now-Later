@@ -2,6 +2,7 @@ plugins {
   id("java-library")
   alias(libs.plugins.jetbrains.kotlin.jvm)
   alias(libs.plugins.kotlin.serialization)
+  id("jacoco")
 }
 
 java {
@@ -22,7 +23,6 @@ dependencies {
 
   // Testing
   testImplementation(libs.junit.junit)
-  testImplementation(libs.mockito.kotlin)
   testImplementation(libs.kotlinx.coroutines.test)
 
   // Coroutines
@@ -30,6 +30,31 @@ dependencies {
 
   // Testing
   testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+  testImplementation(libs.turbine)
+
+  // MockK for unit testing
+  testImplementation(libs.mockk)
 
   implementation(libs.kotlinx.serialization.json)
+  testImplementation(libs.testng)
+}
+tasks.withType<Test> {
+  useJUnit()
+}
+
+tasks.test {
+  finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+  dependsOn(tasks.test)
+  reports {
+    xml.required.set(false)
+    csv.required.set(true)
+    html.required.set(true)
+  }
+}
+
+jacoco {
+  toolVersion = "0.8.7"  // Use latest stable version
 }

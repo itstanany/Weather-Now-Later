@@ -18,6 +18,9 @@ android {
   }
 
   buildTypes {
+    debug {
+      enableUnitTestCoverage = true
+    }
     release {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -44,7 +47,10 @@ dependencies {
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
   implementation(libs.kotlinx.coroutines.android)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.jetbrains.kotlinx.coroutines.test)
 
+  testImplementation(libs.turbine)
   implementation(libs.hilt.android)
   ksp(libs.hilt.compiler)
 
@@ -58,4 +64,7 @@ dependencies {
   implementation(libs.okhttp)
 
   implementation(libs.retrofit2.kotlinx.serialization.converter)
+
+  // MockK for unit testing
+  testImplementation(libs.mockk)
 }

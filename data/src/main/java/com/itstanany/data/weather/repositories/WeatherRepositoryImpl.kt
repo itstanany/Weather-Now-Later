@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
   private val weatherRemoteDataSource: WeatherRemoteDataSource,
+  private val weatherMapper: WeatherMapper,
 ) : WeatherRepository {
   override suspend fun getCurrentWeather(city: City): DailyWeather {
     val response = weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
@@ -21,7 +22,7 @@ class WeatherRepositoryImpl @Inject constructor(
     ) {
       throw Exception("Invalid response")
     }
-    val dailyWeather = WeatherMapper.mapToDomain(
+    val dailyWeather = weatherMapper.mapToDomain(
       weatherCode = response.daily.weatherCode.first()!!,
       maxTemp = response.daily.temperature2mMax.first()!!,
       minTemp = response.daily.temperature2mMin.first()!!,
@@ -49,7 +50,7 @@ class WeatherRepositoryImpl @Inject constructor(
       throw Exception("Invalid response")
     }
     val dailyWeatherForecast = response.daily.weatherCode.mapIndexed { index, weatherCode ->
-      WeatherMapper.mapToDomain(
+      weatherMapper.mapToDomain(
         weatherCode = weatherCode!!,
         maxTemp = response.daily.temperature2mMax[index]!!,
         minTemp = response.daily.temperature2mMin[index]!!,
