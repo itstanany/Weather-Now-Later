@@ -1,8 +1,11 @@
 [versions]
 agp = "8.7.3"
 coilCompose = "3.0.4"
+core = "1.6.1"
 coreSplashscreen = "1.0.1"
 datastorePreferences = "1.1.1"
+hiltAndroidCompiler = "2.51.1"
+hiltAndroidTesting = "2.48"
 javaxInject = "1"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
@@ -22,20 +25,30 @@ hiltNavigation = "1.2.0"
 ksp = "2.1.0-1.0.29"
 kotlinx-serialization = "1.7.3"
 mockk = "1.13.14"
+mockkAgent = "1.13.14"
+mockkAndroid = "1.13.8"
 navigationCompose = "2.8.5"
 jetbrainsKotlinJvm = "2.1.0"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
+runner = "1.6.2"
 turbine = "1.2.0"
 weatherUtils = "1.0.0"
 testng = "6.9.6"
+navigationRuntimeKtx = "2.8.5"
+navigationTesting = "2.8.5"
 
 [libraries]
+androidx-core = { module = "androidx.test:core", version.ref = "core" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "core" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroidTesting" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesCore" }
@@ -67,12 +80,16 @@ kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockkAgent" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockkAndroid" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 weather-utils = { module = "com.itstanany.weathernowandlater:weather-utils", version.ref = "weatherUtils" }
 testng = { group = "org.testng", name = "testng", version.ref = "testng" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigationTesting" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
