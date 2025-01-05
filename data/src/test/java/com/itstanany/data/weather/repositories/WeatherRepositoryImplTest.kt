@@ -44,7 +44,7 @@ class WeatherRepositoryImplTest {
     // Then
     assertEquals(20.0, result.maxTemp)
     assertEquals(15.0, result.minTemp)
-    assertEquals(WeatherCondition.Sunny("Clear sky"), result.condition)
+    assertEquals(WeatherCondition.Sunny(), result.condition)
     assertEquals("°C", result.maxTempUnit)
     coVerify(exactly = 1) {
       weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
