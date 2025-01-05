@@ -75,4 +75,7 @@ dependencies {
 
   implementation(libs.coil.compose)
 
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.mockk)
+
 }
