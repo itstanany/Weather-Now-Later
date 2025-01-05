@@ -114,15 +114,7 @@ interface NetworkConfig {
 Interfaces are kept focused and minimal.
 
 #### Dependency Inversion Principle (DIP)
-```kotlin
-interface WeatherRemoteDataSource {
-    suspend fun getForecast(latitude: Float, longitude: Float): WeatherForecastResponse
-}
 
-class WeatherRemoteDataSourceImpl @Inject constructor(
-    private val apiService: WeatherApiService
-) : WeatherRemoteDataSource
-```
 High-level modules depend on abstractions rather than concrete implementations.
 
 These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components[2][3].
