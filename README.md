@@ -117,7 +117,7 @@ Interfaces are kept focused and minimal.
 
 High-level modules depend on abstractions rather than concrete implementations.
 
-These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components[2][3].
+These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components.
 
 
 ## Weather Utils Library
@@ -132,7 +132,7 @@ A modular library providing essential weather data handling utilities.
 
 ### Integration
 ```gradle
-implementation 'com.itstanany:weather-utils:1.0.0'
+implementation 'com.itstanany.weathernowandlater:weather-utils:1.0.0'
 ```
 
 ### Example Usage
@@ -145,27 +145,27 @@ val date = DateUtils.parseDate("2024-01-05")
 
 ```
 
-Built with comprehensive test coverage and clean architecture principles, this library simplifies weather data handling across the application.
+Built with comprehensive test coverage and clean architecture principles.
 
 
 
 ## CI/CD Pipeline
 
-Implemented continuous integration and deployment using GitHub Actions, featuring:
+Implemented continuous integration and deployment using GitHub Actions:
 
 <p align="center">
   <img src="docs/cicd.png" />
 </p>
 
 ### Key Features
-- Code linting with ktlint
-- Unit test execution with coverage reporting
-- Automated APK generation (debug/release)
+- Code linting 
+- Unit test execution 
+- App Build & Automated APK generation (debug)
 
 ### Why GitHub Actions?
 - Seamless GitHub repository integration
 - Zero configuration overhead
-- Free tier for public repositories
+- Free tier.
 - Built-in Android support
 
 ### Workflow Triggers
@@ -189,7 +189,7 @@ This automation ensures consistent code quality and reliable builds across the d
 - **Kotlin Coroutines**: Simplified asynchronous programming with improved readability and error handling
 
 ### Dependency Injection
-- **Dagger Hilt**: Simplified dependency injection built on top of Dagger, reducing boilerplate and improving build times
+- **Dagger Hilt**: Simplified dependency injection built on top of Dagger with compile time type safey, reducing boilerplate and improving build times
 
 ### Local Storage
 - **DataStore**: Modern replacement for SharedPreferences, providing type-safe data storage with Kotlin Coroutines support
@@ -247,7 +247,7 @@ The generated APKs can be found in:
 #### The following are few to mention improvement can be added to the project but due to deadline were not implemented:
 - Use `detekt` for comprehensive code smell detection and analysis
 - use `ktlint` to enforce consistent code style and Kotlin best practices
-- use git hooks fore precommit code quality checks
+- use git hooks fore pre-commit code quality checks
 - Improve app startup time by building Baseline profiles
 - Write more instrumented tests.
 - Jetpack compose stabilization and optimization
