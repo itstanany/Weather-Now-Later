@@ -7,5 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SearchCitiesResponse(
     @SerialName("results")
-    val results: List<CityResultDto>
+    val results: List<CityResultDto>?,
+    @SerialName("generationtime_ms")
+    val generationTimeMs: Double?,
 )

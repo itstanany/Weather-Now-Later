@@ -20,6 +20,7 @@ fun SearchResultsBody(
   searchResults: ImmutableList<City>,
   onCityClick: (City) -> Unit,
   errorMessage: String?,
+  isSearchResultsEmpty: Boolean,
   modifier: Modifier = Modifier
 ) {
   Box(modifier = modifier) {
@@ -37,6 +38,15 @@ fun SearchResultsBody(
           modifier = Modifier
             .align(Alignment.Center)
             .padding(16.dp)
+        )
+      }
+
+      isSearchResultsEmpty -> {
+        Text(
+          text = "No results found",
+          modifier = Modifier
+            .align(Alignment.Center)
+            .padding(16.dp),
         )
       }
 

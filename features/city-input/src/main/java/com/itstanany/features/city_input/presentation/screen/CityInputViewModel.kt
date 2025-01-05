@@ -50,7 +50,8 @@ class CityInputViewModel @Inject constructor(
               _viewState.update {
                 it.copy(
                   isLoading = true,
-                  searchResults = persistentListOf()
+                  searchResults = persistentListOf(),
+                  isSearchResultsEmpty = false
                 )
               }
               emit(searchCitiesUseCase(searchQuery))

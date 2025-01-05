@@ -30,12 +30,12 @@ class CityRepositoryImpl @Inject constructor(
     cityName: String,
   ): List<City> {
     val result = cityRemoteDataSource.searchCities(cityName)
-    val cities = result.mapNotNull {
+    val cities = result?.mapNotNull {
       it.takeIf { it.latitude != null && it.longitude != null }?.let { validCityDto ->
         cityMapper.mapToDomain(validCityDto)
       }
     }
-    return cities
+    return cities ?: listOf()
   }
 
   /**

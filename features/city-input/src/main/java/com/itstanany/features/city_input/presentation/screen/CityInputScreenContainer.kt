@@ -80,6 +80,7 @@ fun CityInputScreenContainer(
         searchResults = viewState.searchResults,
         onCityClick = onCitySelected,
         errorMessage = viewState.errorMessage,
+        isSearchResultsEmpty = viewState.isSearchResultsEmpty,
         modifier = Modifier.fillMaxSize()
       )
     }
