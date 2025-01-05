@@ -16,6 +16,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Test
+import java.io.IOException
 
 class WeatherRepositoryImplTest {
   @MockK
@@ -111,6 +112,98 @@ class WeatherRepositoryImplTest {
       weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
     }
   }
+
+  @Test
+  fun `getForecast when response has mismatched list sizes then throws exception`() = runTest {
+    // Given
+    val city = City("London", "UK", 51.5074f, -0.1278f, 1)
+    val response = mockResponseWithMismatchedLists()
+    coEvery { weatherRemoteDataSource.getForecast(city.latitude, city.longitude) } returns response
+
+    // When & Then
+    assertThrows(IndexOutOfBoundsException::class.java) {
+      runBlocking {
+        weatherRepository.getForecast(city)
+      }
+    }
+  }
+
+  @Test
+  fun `getCurrentWeather when network is corrupted then throws exception`() = runTest {
+    // Given
+    val city = City("London", "UK", 51.5074f, -0.1278f, 1)
+    val networkException = IOException("Network connection corrupted")
+    coEvery {
+      weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
+    } throws networkException
+
+    // When & Then
+    val thrown = assertThrows(IOException::class.java) {
+      runBlocking {
+        weatherRepository.getCurrentWeather(city)
+      }
+    }
+    assertEquals("Network connection corrupted", thrown.message)
+    coVerify(exactly = 1) {
+      weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
+    }
+  }
+
+  @Test
+  fun `getForecast when network is corrupted then throws exception`() = runTest {
+    // Given
+    val city = City("London", "UK", 51.5074f, -0.1278f, 1)
+    val networkException = IOException("Network connection corrupted")
+    coEvery {
+      weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
+    } throws networkException
+
+    // When & Then
+    val thrown = assertThrows(IOException::class.java) {
+      runBlocking {
+        weatherRepository.getForecast(city)
+      }
+    }
+    assertEquals("Network connection corrupted", thrown.message)
+    coVerify(exactly = 1) {
+      weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
+    }
+  }
+
+
+  private fun mockResponseWithMismatchedLists() = WeatherForecastResponse(
+    daily = Daily(
+      time = listOf("2024-01-05"),
+      weatherCode = listOf(0, 57, 0, 0, 52),
+      temperature2mMax = listOf(22.4),
+      temperature2mMin = listOf(15.0),
+      apparentTemperatureMax = listOf(22.0),
+      apparentTemperatureMin = listOf(13.0),
+      windSpeed10mMax = listOf(10.0),
+      sunrise = listOf(),
+      sunset = listOf(),
+      windDirection10mDominant = listOf()
+    ),
+    dailyUnits = DailyUnits(
+      temperature2mMax = "C",
+      temperature2mMin = "C",
+      apparentTemperatureMax = "C",
+      apparentTemperatureMin = "C",
+      windSpeed10mMax = "km/h",
+      sunrise = null,
+      sunset = null,
+      time = null,
+      weatherCode = null,
+      windDirection10mDominant = null,
+      ),
+    elevation = null,
+    generationtimeMs = null,
+    latitude = null,
+    longitude = null,
+    timezone = null,
+    timezoneAbbreviation = null,
+    utcOffsetSeconds = null
+  )
 
   private fun mockValidForecastResponse() = WeatherForecastResponse(
     daily = Daily(
