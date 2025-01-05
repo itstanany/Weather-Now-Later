@@ -4,6 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
+/**
+ * Utility object for network-related operations.
+ *
+ */
 object NetworkUtils {
   /**
    * Checks if the device has an active internet connection.

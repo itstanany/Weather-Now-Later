@@ -23,6 +23,16 @@ import com.itstanany.features.forecast.R
 import com.itstanany.features.forecast.presentation.uicomponents.ForecastList
 import com.itstanany.features.forecast.presentation.uicomponents.ForecastTopBar
 
+/**
+ * The container composable for the Forecast screen.
+ *
+ * This composable manages the UI and state for displaying the weather forecast data.
+ * It interacts with the [ForecastViewModel] to fetch and display forecast data
+ * for the last searched city. It also provides navigation actions for back navigation.
+ *
+ * @param viewModel The [ForecastViewModel] that manages the state and logic for this screen.
+ * @param modifier A [Modifier] to apply to the root layout of this composable.
+ */
 @Composable
 fun ForecastScreenContainer(
   viewModel: ForecastViewModel,

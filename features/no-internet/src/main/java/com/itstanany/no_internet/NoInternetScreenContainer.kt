@@ -24,6 +24,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
+/**
+ * The container composable for the No Internet screen.
+ *
+ * This composable displays a user-friendly UI when there is no internet connection.
+ * It provides a retry button to allow users to attempt reconnecting or refreshing the app.
+ *
+ * @param onRetry A lambda function to be called when the retry button is clicked.
+ * @param modifier A [Modifier] to apply to the root layout of this composable.
+ */
 @Composable
 fun NoInternetScreenContainer(
   onRetry: () -> Unit,

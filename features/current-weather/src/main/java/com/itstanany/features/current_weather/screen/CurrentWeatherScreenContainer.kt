@@ -21,6 +21,19 @@ import com.itstanany.features.current_weather.R
 import com.itstanany.features.current_weather.uicomponents.CurrentWeatherTopBar
 import com.itstanany.features.current_weather.uicomponents.WeatherContent
 
+/**
+ * The container composable for the Current Weather screen.
+ *
+ * This composable manages the UI and state for displaying the current weather data.
+ * It interacts with the [CurrentWeatherViewModel] to fetch and display weather data
+ * for the last searched city. It also provides navigation actions to the Forecast
+ * and City Input screens.
+ *
+ * @param viewModel The [CurrentWeatherViewModel] that manages the state and logic for this screen.
+ * @param onNavigateToForecast A lambda function to navigate to the Forecast screen.
+ * @param onNavigateToSearch A lambda function to navigate to the City Input screen.
+ * @param modifier A [Modifier] to apply to the root layout of this composable.
+ */
 @Composable
 fun CurrentWeatherScreenContainer(
   viewModel: CurrentWeatherViewModel,
@@ -97,4 +110,3 @@ fun CurrentWeatherScreenContainer(
     }
   }
 }
-

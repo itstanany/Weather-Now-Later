@@ -9,21 +9,27 @@ import com.itstanany.weathernowandlater.weather_utils.DateUtils
 import javax.inject.Inject
 
 /**
- * A repository responsible for providing weather data.
+ * An implementation of the [WeatherRepository] that retrieves weather data from a remote data source.
  *
- * This interface defines methods for retrieving current weather and forecast data
- * for a given city. Implementations of this interface should handle the logic
- * for fetching weather data from a data source (e.g., a remote API or local database).
+ * This class uses the [WeatherRemoteDataSource] to fetch weather data and the [WeatherMapper]
+ * to map the data to domain models.
+ *
+ * @param weatherRemoteDataSource The remote data source for weather data.
+ * @param weatherMapper The mapper used to convert data to domain models.
+ * @constructor Creates an instance of [WeatherRepositoryImpl].
  */
 class WeatherRepositoryImpl @Inject constructor(
   private val weatherRemoteDataSource: WeatherRemoteDataSource,
   private val weatherMapper: WeatherMapper,
 ) : WeatherRepository {
+
+
   /**
-   * Retrieves the current weather for the specified city.
+   * Retrieves the current weather for the specified city from the remote data source.
    *
    * @param city The [City] for which to retrieve the current weather.
    * @return A [DailyWeather] object representing the current weather conditions.
+   * @throws Exception If the response from the remote data source is invalid.
    */
   override suspend fun getCurrentWeather(city: City): DailyWeather {
     val response = weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
@@ -53,10 +59,11 @@ class WeatherRepositoryImpl @Inject constructor(
   }
 
   /**
-   * Retrieves the weather forecast for the specified city.
+   * Retrieves the weather forecast for the specified city from the remote data source.
    *
    * @param city The [City] for which to retrieve the forecast.
    * @return A list of [DailyWeather] objects representing the forecast for the coming days.
+   * @throws Exception If the response from the remote data source is invalid.
    */
   override suspend fun getForecast(city: City): List<DailyWeather> {
 

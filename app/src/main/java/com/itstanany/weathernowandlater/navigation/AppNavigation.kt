@@ -13,6 +13,23 @@ import com.itstanany.features.forecast.presentation.screen.ForecastScreenContain
 import com.itstanany.features.splash.presentation.screen.SplashScreen
 import com.itstanany.no_internet.NoInternetScreenContainer
 
+/**
+ * The main navigation composable for the application.
+ *
+ * This function sets up the navigation graph using Jetpack Navigation and defines the navigation
+ * logic between different screens in the app. It uses a [NavController] to manage navigation
+ * and provides lambda functions for navigating between screens.
+ *
+ * The navigation graph includes the following destinations:
+ * - [NavRoutes.Splash]: The splash screen, which is the start destination.
+ * - [NavRoutes.CityInput]: The screen for entering a city name.
+ * - [NavRoutes.CurrentWeather]: The screen displaying the current weather for a selected city.
+ * - [NavRoutes.NoInternet]: The screen shown when there is no internet connection.
+ * - [NavRoutes.Forecast]: The screen displaying the weather forecast for a selected city.
+ *
+ * Each destination is associated with a composable screen, and navigation actions are passed
+ * to the respective screens as lambda functions.
+ */
 @Composable
 fun AppNavigation() {
   val navController = rememberNavController()

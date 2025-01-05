@@ -20,6 +20,17 @@ import com.itstanany.features.city_input.presentation.components.CityInputTopBar
 import com.itstanany.features.city_input.presentation.components.SearchBar
 import com.itstanany.features.city_input.presentation.components.SearchResultsBody
 
+/**
+ * The container composable for the City Input screen.
+ *
+ * This composable manages the UI and state for the city search functionality. It interacts with
+ * the [CityInputViewModel] to handle user input, fetch search results, and navigate to the
+ * CurrentWeather screen when a city is selected.
+ *
+ * @param viewModel The [CityInputViewModel] that manages the state and logic for this screen.
+ * @param onNavigateToCurrentWeather A lambda function to navigate to the [CurrentWeather] screen.
+ * @param modifier A [Modifier] to apply to the root layout of this composable.
+ */
 @Composable
 fun CityInputScreenContainer(
   viewModel: CityInputViewModel,

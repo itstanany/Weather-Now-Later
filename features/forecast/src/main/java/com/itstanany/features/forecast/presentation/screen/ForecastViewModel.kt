@@ -15,6 +15,16 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Forecast screen.
+ *
+ * This ViewModel manages the state and logic for fetching and displaying the weather forecast
+ * for the last searched city. It interacts with the [GetForecastUseCase] to fetch forecast data
+ * and the [GetLastSearchedCityUseCase] to retrieve the last searched city.
+ *
+ * @property getForecastUseCase The use case for fetching weather forecast data for a city.
+ * @property getLastSearchedCityUseCase The use case for retrieving the last searched city.
+ */
 @HiltViewModel
 class ForecastViewModel @Inject constructor(
   private val getForecastUseCase: GetForecastUseCase,
@@ -27,6 +37,14 @@ class ForecastViewModel @Inject constructor(
   private var screenOpened = false
   private var loadingForecastJob: Job? = null
 
+  /**
+   * Processes the given intent to trigger specific actions in the ViewModel.
+   *
+   * This method handles the [ForecastIntent.ScreenOpened] intent, which triggers
+   * the loading of forecast data when the screen is opened for the first time.
+   *
+   * @param intent The intent to process.
+   */
   fun processIntent(intent: ForecastIntent) {
     when (intent) {
       is ForecastIntent.ScreenOpened -> {
@@ -38,6 +56,12 @@ class ForecastViewModel @Inject constructor(
     }
   }
 
+  /**
+   * Loads the weather forecast data for the last searched city.
+   *
+   * This method cancels any ongoing loading job and starts a new one to fetch the last searched city
+   * and its forecast data.
+   */
   private fun loadForecast() {
     loadingForecastJob?.cancel()
     loadingForecastJob = viewModelScope.launch {
