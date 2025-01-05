@@ -27,16 +27,16 @@ A modern Android weather application showcasing clean architecture and best prac
 
 | **Module**              | **Depends On**                              | **Purpose**                                                                 |
 |--------------------------|---------------------------------------------|-----------------------------------------------------------------------------|
-| **`app`**               | `features`, `domain`, `data`, `core`, `weather-utils` | Main entry point. Wires modules together, handles DI, navigation, and app lifecycle. |
-| **`features:city-input`** | `domain`, `core`, `weather-utils`           | Manages the city input screen. Implements UI and ViewModel logic (MVVM).    |
-| **`features:current-weather`** | `domain`, `core`, `weather-utils`           | Displays current weather data. Implements UI and ViewModel logic (MVVM).    |
+| **`app`**               | `features`, `domain`, `data`, `core`, `weather-utils`, `:features:city-input`, `:features:current-weather`, `:features:forecast`, `:features:no-internet`, `:features:splash` | Main entry point. Wires modules together, handles DI, navigation, and app lifecycle. |
+| **`core`**              |  `domain`                                   | Provides shared utilities (e.g., `NetworkUtils`)|
+| **`domain`**            | None                                        | Contains business logic, use cases, and repository interfaces.              |
+| **`data`**              | `domain`, `core`                            | Implements repository interfaces, handles local (DataStore) and remote (Retrofit) data sources. |
+| **`weather-utils`**     | None                                        | Contains reusable weather-specific utilities (e.g., formatting, conversions). |
+| **`features:city-input`** | `domain`, `core`, `weather-utils`         | Manages the city input screen. Implements UI and ViewModel logic (MVVM).    |
+| **`features:current-weather`** | `domain`, `core`, `weather-utils`    | Displays current weather data. Implements UI and ViewModel logic (MVVM).    |
 | **`features:forecast`** | `domain`, `core`, `weather-utils`           | Displays 7-day forecast. Implements UI and ViewModel logic (MVI).    |
 | **`features:no-internet`** | None                                     | Display Error Screen with retry action.                          |
 | **`features:splash`** | `domain`,                                     | Splash Screen to either to city input or current weather screen. Implements UI and ViewModel logic (MVI).    |
-| **`domain`**            | None                                        | Contains business logic, use cases, and repository interfaces.              |
-| **`data`**              | `domain`, `core`                            | Implements repository interfaces, handles local (Room/DataStore) and remote (Retrofit) data sources. |
-| **`core`**              |  `domain`                                   | Provides shared utilities (e.g., `NetworkUtils`)|
-| **`weather-utils`**     | None                                        | Contains reusable weather-specific utilities (e.g., formatting, conversions). |
 
 
 ### Core Components
