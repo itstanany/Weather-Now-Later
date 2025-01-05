@@ -19,9 +19,15 @@ A modern Android weather application showcasing clean architecture and best prac
 ## Technical Stack & Architecture
 
 ### Clean Architecture
-- **Domain Layer**: Business logic and entities
-- **Data Layer**: Repositories and data sources
-- **Presentation Layer**: ViewModels and UI components
+- **Domain Layer**: Business logic and entities(Use case - repository Interface, domain entity)
+- **Data Layer**: Repositories implementation and data sources (local and remote)
+- **Presentation Layer**: MVVM and MVI presentation architecture patterns (Uni Directional Data Flow)
+
+| Architecture Pattern | Key Benefits | Why Used |
+|---------------------|--------------|-----------|
+| MVVM | - Clear separation of concerns<br>- Lifecycle-aware components<br>- Easy unit testing<br>| - Enables isolated testing of ViewModels<br>- Handles Android lifecycle automatically<br>- Provides clean data flow patterns<br>- Works well with Kotlin coroutines |
+| MVI | - Immutable state management<br>- Single source of truth<br>- Predictable data flow<br>- Clear user intent handling<br>- Better debugging | - Prevents state inconsistencies<br>- Makes testing more reliable<br>- Simplifies state management<br>- Improves error tracking |
+
 
 ### Key Technologies
 - Kotlin Coroutines & Flow for reactive programming
