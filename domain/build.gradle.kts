@@ -2,6 +2,7 @@ plugins {
   id("java-library")
   alias(libs.plugins.jetbrains.kotlin.jvm)
   alias(libs.plugins.kotlin.serialization)
+  id("jacoco")
 }
 
 java {
@@ -39,4 +40,21 @@ dependencies {
 }
 tasks.withType<Test> {
   useJUnit()
+}
+
+tasks.test {
+  finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+  dependsOn(tasks.test)
+  reports {
+    xml.required.set(false)
+    csv.required.set(true)
+    html.required.set(true)
+  }
+}
+
+jacoco {
+  toolVersion = "0.8.7"  // Use latest stable version
 }
