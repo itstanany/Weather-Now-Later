@@ -29,6 +29,89 @@ A modern Android weather application showcasing clean architecture and best prac
 | MVI | - Immutable state management<br>- Single source of truth<br>- Predictable data flow<br>- Clear user intent handling<br>- Better debugging | - Prevents state inconsistencies<br>- Makes testing more reliable<br>- Simplifies state management<br>- Improves error tracking |
 
 
+
+## Object-Oriented Programming Implementation
+
+The project implements core OOP principles through a clean and maintainable architecture:
+
+### Encapsulation
+- ViewModels encapsulate UI state and business logic
+- Repositories encapsulate data operations and transformations
+- Custom mappers handle data conversion between layers
+- Private properties and methods control access to internal state
+
+### Abstraction
+- Interfaces define contracts between layers (NetworkConfig, WeatherRepository)
+- Abstract base classes provide common functionality (BaseUseCase)
+- Use cases abstract business logic implementation details
+
+### Inheritance
+- ViewModels inherit from Android ViewModel class.
+- Base classes like BaseUseCase are reused across multiple use cases in the domain module.
+This allows shared logic (e.g., coroutine dispatching) to be inherited and reused, reducing duplication.
+
+### Polymorphism
+- Weather conditions implemented as sealed classes
+- Dependency injection (e.g., through Dagger Hilt) allows polymorphic behavior: The domain layer depends on abstractions (e.g., WeatherRepository), while different implementations (e.g., WeatherRepositoryImpl) can be injected at runtime. This ensures flexibility and extensibility, enabling easy swapping of implementations.
+
+
+
+## SOLID Principles Implementation
+
+The project demonstrates adherence to SOLID principles through practical implementations:
+
+### Single Responsibility Principle (SRP)
+- WeatherMapper handles only data mapping
+- Each ViewModel manages single screen state and logic
+
+### Open/Closed Principle (OCP)
+```kotlin
+sealed class WeatherCondition {
+    data class Sunny(val description: String) : WeatherCondition()
+    data class Cloudy(val description: String) : WeatherCondition()
+    data class Rainy(val description: String) : WeatherCondition()
+}
+```
+Weather conditions are extensible without modifying existing code.
+
+### Liskov Substitution Principle (LSP)
+```kotlin
+interface WeatherRepository {
+    suspend fun getCurrentWeather(city: City): DailyWeather
+    suspend fun getForecast(city: City): List<DailyWeather>
+}
+
+class WeatherRepositoryImpl @Inject constructor(
+    private val weatherRemoteDataSource: WeatherRemoteDataSource
+) : WeatherRepository
+```
+Repository implementations can be substituted without affecting functionality.
+
+### Interface Segregation Principle (ISP)
+```kotlin
+interface NetworkConfig {
+    val forecastApiBaseUrl: String
+    val cityApiBaseUrl: String
+}
+```
+Interfaces are kept focused and minimal.
+
+### Dependency Inversion Principle (DIP)
+```kotlin
+interface WeatherRemoteDataSource {
+    suspend fun getForecast(latitude: Float, longitude: Float): WeatherForecastResponse
+}
+
+class WeatherRemoteDataSourceImpl @Inject constructor(
+    private val apiService: WeatherApiService
+) : WeatherRemoteDataSource
+```
+High-level modules depend on abstractions rather than concrete implementations.
+
+These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components[2][3].
+
+
+
 ### Key Technologies
 - Kotlin Coroutines & Flow for reactive programming
 - Hilt for dependency injection
