@@ -208,6 +208,10 @@ This automation ensures consistent code quality and reliable builds across the d
 - Edge case handling
 - Coroutine testing utilities
 
+### Code optimization
+- use `inline` functions
+- use `Immutable` collections with Jetpack Compose
+
 
 ## Build Artifacts
 
