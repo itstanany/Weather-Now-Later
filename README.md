@@ -35,8 +35,8 @@ A modern Android weather application showcasing clean architecture and best prac
 | **`features:splash`** | `domain`,                                     | Splash Screen to either to city input or current weather screen. Implements UI and ViewModel logic (MVI).    |
 | **`domain`**            | None                                        | Contains business logic, use cases, and repository interfaces.              |
 | **`data`**              | `domain`, `core`                            | Implements repository interfaces, handles local (Room/DataStore) and remote (Retrofit) data sources. |
-| **`core`**              |  `domain`                         | Provides shared utilities (e.g., `NetworkUtils`, `Logger`) and base classes.|
-| **`weather-utils`**     | None                                        | Contains reusable weather-specific utilities (e.g., formatting, conversions, icon mapping). |
+| **`core`**              |  `domain`                                   | Provides shared utilities (e.g., `NetworkUtils`)|
+| **`weather-utils`**     | None                                        | Contains reusable weather-specific utilities (e.g., formatting, conversions). |
 
 
 ### Core Components
