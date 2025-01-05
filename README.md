@@ -30,7 +30,7 @@ A modern Android weather application showcasing clean architecture and best prac
 | **`app`**               | `features`, `domain`, `data`, `core`, `weather-utils` | Main entry point. Wires modules together, handles DI, navigation, and app lifecycle. |
 | **`features:city-input`** | `domain`, `core`, `weather-utils`           | Manages the city input screen. Implements UI and ViewModel logic (MVVM).    |
 | **`features:current-weather`** | `domain`, `core`, `weather-utils`           | Displays current weather data. Implements UI and ViewModel logic (MVVM).    |
-| **`features:forecast`** | `domain`, `core`, `weather-utils`           | Displays 7-day forecast. Implements UI and ViewModel logic (MVVM).    |
+| **`features:forecast`** | `domain`, `core`, `weather-utils`           | Displays 7-day forecast. Implements UI and ViewModel logic (MVI).    |
 | **`features:no-internet`** | None                                     | Display Error Screen with retry action.                          |
 | **`features:splash`** | `domain`,                                     | Splash Screen to either to city input or current weather screen. Implements UI and ViewModel logic (MVI).    |
 | **`domain`**            | None                                        | Contains business logic, use cases, and repository interfaces.              |
@@ -42,7 +42,7 @@ A modern Android weather application showcasing clean architecture and best prac
 ### Core Components
 - Repository pattern for data management
 - Custom mappers for data transformation
-- Sealed classes for error handling
+- Sealed classes for Weather Condition
 - Immutable state management
 
 ## Engineering Practices
