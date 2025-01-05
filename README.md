@@ -3,9 +3,9 @@
 A modern Android weather application showcasing clean architecture and best practices in Android development.
 
 <p align="center">
-  <img src="docs/ezgif.com-animated-gif-maker.gif" width="42%" height="70%"/>
+  <img src="docs/ezgif.com-animated-gif-maker.gif" width="42%" height="68%"/>
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="docs/ezgif.com-animated-gif-maker -dark.gif" width="42%" height="70%"/>
+  <img src="docs/ezgif.com-animated-gif-maker -dark.gif" width="42%" height="68%"/>
 </p>
 
 
