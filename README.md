@@ -16,126 +16,7 @@ A modern Android weather application showcasing clean architecture and best prac
 - Last searched city persistence
 - Dark Mode Support
 
-## Technical Stack & Architecture
-
-### Clean Architecture
-- **Domain Layer**: Business logic and entities(Use case - repository Interface, domain entity)
-- **Data Layer**: Repositories implementation and data sources (local and remote)
-- **Presentation Layer**: MVVM and MVI presentation architecture patterns (Uni Directional Data Flow)
-
-| Architecture Pattern | Key Benefits | Why Used |
-|---------------------|--------------|-----------|
-| MVVM | - Clear separation of concerns<br>- Lifecycle-aware components<br>- Easy unit testing<br>| - Enables isolated testing of ViewModels<br>- Handles Android lifecycle automatically<br>- Provides clean data flow patterns<br>- Works well with Kotlin coroutines |
-| MVI | - Immutable state management<br>- Single source of truth<br>- Predictable data flow<br>- Clear user intent handling<br>- Better debugging | - Prevents state inconsistencies<br>- Makes testing more reliable<br>- Simplifies state management<br>- Improves error tracking |
-
-
-
-## Object-Oriented Programming Implementation
-
-The project implements core OOP principles through a clean and maintainable architecture:
-
-### Encapsulation
-- ViewModels encapsulate UI state and business logic
-- Repositories encapsulate data operations and transformations
-- Custom mappers handle data conversion between layers
-- Private properties and methods control access to internal state
-
-### Abstraction
-- Interfaces define contracts between layers (NetworkConfig, WeatherRepository)
-- Abstract base classes provide common functionality (BaseUseCase)
-- Use cases abstract business logic implementation details
-
-### Inheritance
-- ViewModels inherit from Android ViewModel class.
-- Base classes like BaseUseCase are reused across multiple use cases in the domain module.
-This allows shared logic (e.g., coroutine dispatching) to be inherited and reused, reducing duplication.
-
-### Polymorphism
-- Weather conditions implemented as sealed classes
-- Dependency injection (e.g., through Dagger Hilt) allows polymorphic behavior: The domain layer depends on abstractions (e.g., WeatherRepository), while different implementations (e.g., WeatherRepositoryImpl) can be injected at runtime. This ensures flexibility and extensibility, enabling easy swapping of implementations.
-
-
-
-## SOLID Principles Implementation
-
-The project demonstrates adherence to SOLID principles through practical implementations:
-
-### Single Responsibility Principle (SRP)
-- WeatherMapper handles only data mapping
-- Each ViewModel manages single screen state and logic
-
-### Open/Closed Principle (OCP)
-```kotlin
-sealed class WeatherCondition {
-    data class Sunny(val description: String) : WeatherCondition()
-    data class Cloudy(val description: String) : WeatherCondition()
-    data class Rainy(val description: String) : WeatherCondition()
-}
-```
-Weather conditions are extensible without modifying existing code.
-
-### Liskov Substitution Principle (LSP)
-```kotlin
-interface WeatherRepository {
-    suspend fun getCurrentWeather(city: City): DailyWeather
-    suspend fun getForecast(city: City): List<DailyWeather>
-}
-
-class WeatherRepositoryImpl @Inject constructor(
-    private val weatherRemoteDataSource: WeatherRemoteDataSource
-) : WeatherRepository
-```
-Repository implementations can be substituted without affecting functionality.
-
-### Interface Segregation Principle (ISP)
-```kotlin
-interface NetworkConfig {
-    val forecastApiBaseUrl: String
-    val cityApiBaseUrl: String
-}
-```
-Interfaces are kept focused and minimal.
-
-### Dependency Inversion Principle (DIP)
-```kotlin
-interface WeatherRemoteDataSource {
-    suspend fun getForecast(latitude: Float, longitude: Float): WeatherForecastResponse
-}
-
-class WeatherRemoteDataSourceImpl @Inject constructor(
-    private val apiService: WeatherApiService
-) : WeatherRemoteDataSource
-```
-High-level modules depend on abstractions rather than concrete implementations.
-
-These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components[2][3].
-
-
-## Technology Stack
-
-### UI & Design
-- **Jetpack Compose**: Modern declarative UI toolkit for native Android development, chosen for its improved productivity and modern UI development approach
-- **Material Theming**: Consistent and customizable design system that provides a polished user experience
-
-### Architecture & State Management
-- **ViewModel**: Lifecycle-aware state holder for managing UI data and surviving configuration changes
-- **Kotlin Flows**: Reactive stream processing for handling asynchronous data sequences and UI state updates
-- **Kotlin Coroutines**: Simplified asynchronous programming with improved readability and error handling
-
-### Dependency Injection
-- **Dagger Hilt**: Simplified dependency injection built on top of Dagger, reducing boilerplate and improving build times
-
-### Local Storage
-- **DataStore**: Modern replacement for SharedPreferences, providing type-safe data storage with Kotlin Coroutines support
-
-### Testing
-- **MockK**: Kotlin-first mocking library that provides elegant DSL for test mocking
-- **JUnit**: Industry-standard testing framework for unit testing with comprehensive assertion capabilities
-
-
-## Project Structure
-
-### Modularization
+## Modularization
 
 | **Module**              | **Depends On**                              | **Purpose**                                                                 |
 |--------------------------|---------------------------------------------|-----------------------------------------------------------------------------|
@@ -149,6 +30,102 @@ These implementations ensure the codebase remains maintainable, testable, and sc
 | **`features:forecast`** | `domain`, `core`, `weather-utils`           | Displays 7-day forecast. Implements UI and ViewModel logic (MVI).    |
 | **`features:no-internet`** | None                                     | Display Error Screen with retry action.                          |
 | **`features:splash`** | `domain`,                                     | Splash Screen to either to city input or current weather screen. Implements UI and ViewModel logic (MVI).    |
+
+
+
+## Architecture
+
+### Clean Architecture
+- **Domain Layer**: Business logic and entities(Use case - repository Interface, domain entity)
+- **Data Layer**: Repositories implementation and data sources (local and remote)
+- **Presentation Layer**: MVVM and MVI presentation architecture patterns (Uni Directional Data Flow)
+
+| Architecture Pattern | Key Benefits | Why Used |
+|---------------------|--------------|-----------|
+| MVVM | - Clear separation of concerns<br>- Lifecycle-aware components<br>- Easy unit testing<br>| - Enables isolated testing of ViewModels<br>- Handles Android lifecycle automatically<br>- Provides clean data flow patterns<br>- Works well with Kotlin coroutines |
+| MVI | - Immutable state management<br>- Single source of truth<br>- Predictable data flow<br>- Clear user intent handling<br>- Better debugging | - Prevents state inconsistencies<br>- Makes testing more reliable<br>- Simplifies state management<br>- Improves error tracking |
+
+
+
+### Object-Oriented Programming Implementation
+
+The project implements core OOP principles through a clean and maintainable architecture:
+
+#### Encapsulation
+- ViewModels encapsulate UI state and business logic
+- Repositories encapsulate data operations and transformations
+- Custom mappers handle data conversion between layers
+- Private properties and methods control access to internal state
+
+#### Abstraction
+- Interfaces define contracts between layers (NetworkConfig, WeatherRepository)
+- Abstract base classes provide common functionality (BaseUseCase)
+- Use cases abstract business logic implementation details
+
+#### Inheritance
+- ViewModels inherit from Android ViewModel class.
+- Base classes like BaseUseCase are reused across multiple use cases in the domain module.
+This allows shared logic (e.g., coroutine dispatching) to be inherited and reused, reducing duplication.
+
+#### Polymorphism
+- Weather conditions implemented as sealed classes
+- Dependency injection (e.g., through Dagger Hilt) allows polymorphic behavior: The domain layer depends on abstractions (e.g., WeatherRepository), while different implementations (e.g., WeatherRepositoryImpl) can be injected at runtime. This ensures flexibility and extensibility, enabling easy swapping of implementations.
+
+
+
+### SOLID Principles Implementation
+
+The project demonstrates adherence to SOLID principles through practical implementations:
+
+#### Single Responsibility Principle (SRP)
+- WeatherMapper handles only data mapping
+- Each ViewModel manages single screen state and logic
+
+#### Open/Closed Principle (OCP)
+```kotlin
+sealed class WeatherCondition {
+    data class Sunny(val description: String) : WeatherCondition()
+    data class Cloudy(val description: String) : WeatherCondition()
+    data class Rainy(val description: String) : WeatherCondition()
+}
+```
+Weather conditions are extensible without modifying existing code.
+
+#### Liskov Substitution Principle (LSP)
+```kotlin
+interface WeatherRepository {
+    suspend fun getCurrentWeather(city: City): DailyWeather
+    suspend fun getForecast(city: City): List<DailyWeather>
+}
+
+class WeatherRepositoryImpl @Inject constructor(
+    private val weatherRemoteDataSource: WeatherRemoteDataSource
+) : WeatherRepository
+```
+Repository implementations can be substituted without affecting functionality.
+
+#### Interface Segregation Principle (ISP)
+```kotlin
+interface NetworkConfig {
+    val forecastApiBaseUrl: String
+    val cityApiBaseUrl: String
+}
+```
+Interfaces are kept focused and minimal.
+
+#### Dependency Inversion Principle (DIP)
+```kotlin
+interface WeatherRemoteDataSource {
+    suspend fun getForecast(latitude: Float, longitude: Float): WeatherForecastResponse
+}
+
+class WeatherRemoteDataSourceImpl @Inject constructor(
+    private val apiService: WeatherApiService
+) : WeatherRemoteDataSource
+```
+High-level modules depend on abstractions rather than concrete implementations.
+
+These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components[2][3].
 
 
 ## Weather Utils Library
@@ -179,9 +156,14 @@ val date = DateUtils.parseDate("2024-01-05")
 Built with comprehensive test coverage and clean architecture principles, this library simplifies weather data handling across the application.
 
 
+
 ## CI/CD Pipeline
 
 Implemented continuous integration and deployment using GitHub Actions, featuring:
+
+<p align="center">
+  <img src="docs/cicd.png" />
+</p>
 
 ### Key Features
 - Code linting with ktlint
@@ -202,11 +184,29 @@ Implemented continuous integration and deployment using GitHub Actions, featurin
 This automation ensures consistent code quality and reliable builds across the development lifecycle.
 
 
-### Core Components
-- Repository pattern for data management
-- Custom mappers for data transformation
-- Sealed classes for Weather Condition
-- Immutable state management
+
+## Technology Stack
+
+### UI & Design
+- **Jetpack Compose**: Modern declarative UI toolkit for native Android development, chosen for its improved productivity and modern UI development approach
+- **Material Theming**: Consistent and customizable design system that provides a polished user experience
+
+### Architecture & State Management
+- **ViewModel**: Lifecycle-aware state holder for managing UI data and surviving configuration changes
+- **Kotlin Flows**: Reactive stream processing for handling asynchronous data sequences and UI state updates
+- **Kotlin Coroutines**: Simplified asynchronous programming with improved readability and error handling
+
+### Dependency Injection
+- **Dagger Hilt**: Simplified dependency injection built on top of Dagger, reducing boilerplate and improving build times
+
+### Local Storage
+- **DataStore**: Modern replacement for SharedPreferences, providing type-safe data storage with Kotlin Coroutines support
+
+### Testing
+- **MockK**: Kotlin-first mocking library that provides elegant DSL for test mocking
+- **JUnit**: Industry-standard testing framework for unit testing with comprehensive assertion capabilities
+
+
 
 ## Engineering Practices
 
@@ -216,26 +216,32 @@ This automation ensures consistent code quality and reliable builds across the d
 - Edge case handling
 - Coroutine testing utilities
 
-### Code Quality
-- SOLID principles implementation
-- Clear dependency boundaries
-- Consistent code style
-- Descriptive naming conventions
 
-### Error Handling
-- Structured exception handling
-- Graceful error recovery
-- User-friendly error messages
-- Network error management
+## Build Artifacts
 
-## Getting Started
-[Installation and setup instructions]
+### GitHub Actions Build
+The project's artifacts can be obtained through GitHub Actions in two ways:
 
-## Contributing
-[Contribution guidelines]
+### Download Latest Build
+1. Go to the Actions tab in the repository
+2. Select the latest successful workflow run
+3. Download artifacts from the Artifacts section:
+   - Debug APK
 
-## License
-[License information]
+### Manual Build
+To build locally:
+```bash
+# Debug build
+./gradlew assembleDebug
 
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/2499385/ad672fb4-13e3-4bbc-8688-bea98315ca29/paste.txt
+# Release build
+./gradlew assembleRelease
+
+# Run tests
+./gradlew test
+```
+
+The generated APKs can be found in:
+- Debug: `app/build/outputs/apk/debug/`
+- Release: `app/build/outputs/apk/release/`
+
