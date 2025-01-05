@@ -207,6 +207,7 @@ This automation ensures consistent code quality and reliable builds across the d
 - Isolated testing with mocked dependencies
 - Edge case handling
 - Coroutine testing utilities
+- Unit and Instrumented Tests
 
 ### Code optimization
 - use `inline` functions
@@ -240,4 +241,15 @@ To build locally:
 The generated APKs can be found in:
 - Debug: `app/build/outputs/apk/debug/`
 - Release: `app/build/outputs/apk/release/`
+
+
+## Further Improvement
+#### The following are few to mention improvement can be added to the project but due to deadline were not implemented:
+- Use `detekt` for comprehensive code smell detection and analysis
+- use `ktlint` to enforce consistent code style and Kotlin best practices
+- use git hooks fore precommit code quality checks
+- Improve app startup time by building Baseline profiles
+- Write more instrumented tests.
+- Jetpack compose stabilization and optimization
+- write more reusable UI components.
 
