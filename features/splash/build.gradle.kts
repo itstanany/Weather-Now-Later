@@ -74,4 +74,7 @@ dependencies {
   androidTestImplementation(platform(libs.androidx.compose.bom)) // Matches "androidx-compose-bom" in libs.versions.toml
   androidTestImplementation(libs.androidx.ui.test.junit4) // Matches "androidx-ui-test-junit4" in libs.versions.toml
 
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.mockk)
+
 }

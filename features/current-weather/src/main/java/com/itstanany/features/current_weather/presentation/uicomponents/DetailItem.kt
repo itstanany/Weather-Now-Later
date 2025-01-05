@@ -1,4 +1,4 @@
-package com.itstanany.features.current_weather.uicomponents
+package com.itstanany.features.current_weather.presentation.uicomponents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

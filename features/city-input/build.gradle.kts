@@ -73,4 +73,7 @@ dependencies {
   implementation(libs.kotlinx.serialization.json)
 
   implementation(libs.kotlinx.collections.immutable)
+
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.mockk)
 }

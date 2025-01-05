@@ -1,4 +1,4 @@
-package com.itstanany.features.current_weather.screen
+package com.itstanany.features.current_weather.presentation.screen
 
 import com.itstanany.domain.city.models.City
 import com.itstanany.domain.city.usecases.GetLastSearchedCityUseCase
@@ -6,6 +6,7 @@ import com.itstanany.domain.common.Result
 import com.itstanany.domain.weather.models.DailyWeather
 import com.itstanany.domain.weather.models.WeatherCondition
 import com.itstanany.domain.weather.usecases.GetCurrentWeatherUseCase
+import com.itstanany.features.current_weather.presentation.screen.CurrentWeatherViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

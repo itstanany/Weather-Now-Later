@@ -1,4 +1,4 @@
-package com.itstanany.features.current_weather.screen
+package com.itstanany.features.current_weather.presentation.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.itstanany.domain.weather.models.WeatherCondition
 import com.itstanany.features.current_weather.R
-import com.itstanany.features.current_weather.uicomponents.CurrentWeatherTopBar
-import com.itstanany.features.current_weather.uicomponents.WeatherContent
+import com.itstanany.features.current_weather.presentation.uicomponents.CurrentWeatherTopBar
+import com.itstanany.features.current_weather.presentation.uicomponents.WeatherContent
 
 /**
  * The container composable for the Current Weather screen.

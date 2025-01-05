@@ -1,4 +1,4 @@
-package com.itstanany.features.current_weather.screen
+package com.itstanany.features.current_weather.presentation.screen
 
 import com.itstanany.domain.city.models.City
 import com.itstanany.domain.weather.models.WeatherCondition
