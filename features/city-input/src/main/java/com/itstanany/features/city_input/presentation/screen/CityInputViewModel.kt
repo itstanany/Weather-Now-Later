@@ -1,6 +1,5 @@
 package com.itstanany.features.city_input.presentation.screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.itstanany.domain.city.models.City

@@ -22,7 +22,6 @@ dependencies {
 
   // Testing
   testImplementation(libs.junit.junit)
-  testImplementation(libs.mockito.kotlin)
   testImplementation(libs.kotlinx.coroutines.test)
 
   // Coroutines
@@ -31,5 +30,12 @@ dependencies {
   // Testing
   testImplementation(libs.jetbrains.kotlinx.coroutines.test)
 
+  // MockK for unit testing
+  testImplementation(libs.mockk)
+
   implementation(libs.kotlinx.serialization.json)
+  testImplementation(libs.testng)
+}
+tasks.withType<Test> {
+  useJUnit()
 }
