@@ -1,14 +1,18 @@
 package com.itstanany.data.weather.repositories
 
+import com.itstanany.data.mapper.WeatherMapper
 import com.itstanany.data.weather.models.Daily
 import com.itstanany.data.weather.models.DailyUnits
 import com.itstanany.data.weather.models.WeatherForecastResponse
 import com.itstanany.data.weather.remote.WeatherRemoteDataSource
 import com.itstanany.domain.city.models.City
+import com.itstanany.domain.weather.models.DailyWeather
 import com.itstanany.domain.weather.models.WeatherCondition
+import com.itstanany.weathernowandlater.weather_utils.DateUtils
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
@@ -22,12 +26,15 @@ class WeatherRepositoryImplTest {
   @MockK
   private lateinit var weatherRemoteDataSource: WeatherRemoteDataSource
 
+  @MockK
+  private lateinit var weatherMapper: WeatherMapper
+
   private lateinit var weatherRepository: WeatherRepositoryImpl
 
   @Before
   fun setup() {
     MockKAnnotations.init(this)
-    weatherRepository = WeatherRepositoryImpl(weatherRemoteDataSource)
+    weatherRepository = WeatherRepositoryImpl(weatherRemoteDataSource, weatherMapper)
   }
 
   @Test
@@ -38,6 +45,24 @@ class WeatherRepositoryImplTest {
     coEvery {
       weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
     } returns response
+
+    every {
+      weatherMapper.mapToDomain(
+        weatherCode = mockValidForecastResponse().daily?.weatherCode?.first()!!,
+        maxTemp = mockValidForecastResponse().daily?.temperature2mMax?.first()!!,
+        minTemp = mockValidForecastResponse().daily?.temperature2mMin?.first()!!,
+        maxApparentTemp = mockValidForecastResponse().daily?.apparentTemperatureMax?.first(),
+        minApparentTemp = mockValidForecastResponse().daily?.apparentTemperatureMin?.first(),
+        maxWindSpeed = mockValidForecastResponse().daily?.windSpeed10mMax?.first(),
+        minTempUnit = mockValidForecastResponse().dailyUnits?.temperature2mMin,
+        maxTempUnit = mockValidForecastResponse().dailyUnits?.temperature2mMax,
+        minApparentTempUnit = mockValidForecastResponse().dailyUnits?.apparentTemperatureMin,
+        maxApparentTempUnit = mockValidForecastResponse().dailyUnits?.apparentTemperatureMax,
+        maxWindSpeedUnit = mockValidForecastResponse().dailyUnits?.windSpeed10mMax,
+        date = DateUtils.parseDate(mockValidForecastResponse().daily?.time?.first()!!)
+      )
+    } returns mockValidMappedForecast()[0]
+
 
     // When
     val result = weatherRepository.getCurrentWeather(city)
@@ -79,6 +104,25 @@ class WeatherRepositoryImplTest {
       weatherRemoteDataSource.getForecast(city.latitude, city.longitude)
     } returns response
 
+    every {
+      weatherMapper.mapToDomain(
+        weatherCode = mockValidForecastResponse().daily?.weatherCode?.get(1)!!,
+        maxTemp = mockValidForecastResponse().daily?.temperature2mMax?.get(1)!!,
+        minTemp = mockValidForecastResponse().daily?.temperature2mMin?.get(1)!!,
+        maxApparentTemp = mockValidForecastResponse().daily?.apparentTemperatureMax?.get(1),
+        minApparentTemp = mockValidForecastResponse().daily?.apparentTemperatureMin?.get(1),
+        maxWindSpeed = mockValidForecastResponse().daily?.windSpeed10mMax?.get(1),
+        minTempUnit = mockValidForecastResponse().dailyUnits?.temperature2mMin,
+        maxTempUnit = mockValidForecastResponse().dailyUnits?.temperature2mMax,
+        minApparentTempUnit = mockValidForecastResponse().dailyUnits?.apparentTemperatureMin,
+        maxApparentTempUnit = mockValidForecastResponse().dailyUnits?.apparentTemperatureMax,
+        maxWindSpeedUnit = mockValidForecastResponse().dailyUnits?.windSpeed10mMax,
+        date = DateUtils.parseDate(mockValidForecastResponse().daily?.time?.get(1)!!)
+      )
+    } returns mockValidMappedForecast()[1]
+
+    //todo : remaining mapping every
+
     // When
     val result = weatherRepository.getForecast(city)
 
@@ -119,12 +163,27 @@ class WeatherRepositoryImplTest {
     val city = City("London", "UK", 51.5074f, -0.1278f, 1)
     val response = mockResponseWithMismatchedLists()
     coEvery { weatherRemoteDataSource.getForecast(city.latitude, city.longitude) } returns response
+    every {
+      weatherMapper.mapToDomain(
+        weatherCode = mockValidForecastResponse().daily?.weatherCode?.first()!!,
+        maxTemp = mockValidForecastResponse().daily?.temperature2mMax?.first()!!,
+        minTemp = mockValidForecastResponse().daily?.temperature2mMin?.first()!!,
+        maxApparentTemp = mockValidForecastResponse().daily?.apparentTemperatureMax?.first(),
+        minApparentTemp = mockValidForecastResponse().daily?.apparentTemperatureMin?.first(),
+        maxWindSpeed = mockValidForecastResponse().daily?.windSpeed10mMax?.first(),
+        minTempUnit = mockValidForecastResponse().dailyUnits?.temperature2mMin,
+        maxTempUnit = mockValidForecastResponse().dailyUnits?.temperature2mMax,
+        minApparentTempUnit = mockValidForecastResponse().dailyUnits?.apparentTemperatureMin,
+        maxApparentTempUnit = mockValidForecastResponse().dailyUnits?.apparentTemperatureMax,
+        maxWindSpeedUnit = mockValidForecastResponse().dailyUnits?.windSpeed10mMax,
+        date = DateUtils.parseDate(mockValidForecastResponse().daily?.time?.first()!!)
+      )
+    } returns mockValidMappedForecast()[0]
+
 
     // When & Then
     assertThrows(IndexOutOfBoundsException::class.java) {
-      runBlocking {
-        weatherRepository.getForecast(city)
-      }
+      runBlocking { weatherRepository.getForecast(city) }
     }
   }
 
@@ -174,8 +233,8 @@ class WeatherRepositoryImplTest {
   private fun mockResponseWithMismatchedLists() = WeatherForecastResponse(
     daily = Daily(
       time = listOf("2024-01-05"),
-      weatherCode = listOf(0, 57, 0, 0, 52),
-      temperature2mMax = listOf(22.4),
+      weatherCode = listOf(0, 0, 0, 0, 52),
+      temperature2mMax = listOf(20.0),
       temperature2mMin = listOf(15.0),
       apparentTemperatureMax = listOf(22.0),
       apparentTemperatureMin = listOf(13.0),
@@ -185,17 +244,17 @@ class WeatherRepositoryImplTest {
       windDirection10mDominant = listOf()
     ),
     dailyUnits = DailyUnits(
-      temperature2mMax = "C",
-      temperature2mMin = "C",
-      apparentTemperatureMax = "C",
-      apparentTemperatureMin = "C",
+      apparentTemperatureMax = "°C",
+      apparentTemperatureMin = "°C",
+      sunrise = "iso8601",
+      sunset = "iso8601",
+      temperature2mMax = "°C",
+      temperature2mMin = "°C",
+      time = "iso8601",
+      weatherCode = "wmo code",
+      windDirection10mDominant = "°",
       windSpeed10mMax = "km/h",
-      sunrise = null,
-      sunset = null,
-      time = null,
-      weatherCode = null,
-      windDirection10mDominant = null,
-      ),
+    ),
     elevation = null,
     generationtimeMs = null,
     latitude = null,
@@ -256,6 +315,7 @@ class WeatherRepositoryImplTest {
     timezoneAbbreviation = null,
     utcOffsetSeconds = null,
   )
+
   private fun mockInvalidForecastResponse() = WeatherForecastResponse(
     daily = Daily(
       time = null,
@@ -279,4 +339,25 @@ class WeatherRepositoryImplTest {
     utcOffsetSeconds = null
 
   )
+
+  private fun mockValidMappedForecast() = List(7) {
+    DailyWeather(
+      maxTemp = 20.0,
+      minTemp = 15.0,
+      condition = WeatherCondition.Sunny("Clear sky"),
+      maxTempUnit = "°C",
+      minTempUnit = "°C",
+      maxApparentTemp = 22.0,
+      minApparentTemp = 13.0,
+      maxWindSpeed = 10.0,
+      maxWindSpeedUnit = "km/h",
+      date = DateUtils.parseDate("2024-01-05"),
+      maxApparentTempUnit = "°C",
+      minApparentTempUnit = "°C",
+    )
+  }
+
+  private fun mockInvalidMappedForecast(): Nothing {
+    throw Exception("Invalid response")
+  }
 }

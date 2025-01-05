@@ -1,59 +1,60 @@
 package com.itstanany.data.mapper
 
-import com.itstanany.data.weather.models.WeatherCondition
 import com.itstanany.domain.weather.models.DailyWeather
+import com.itstanany.domain.weather.models.WeatherCondition
 import java.time.LocalDate
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class WeatherMapper @Inject constructor() {
-  companion object {
-    fun mapToDomain(
-      weatherCode: Int,
-      maxTemp: Double,
-      minTemp: Double,
-      maxApparentTemp: Double?,
-      minApparentTemp: Double?,
-      maxWindSpeed: Double?,
-      minTempUnit: String?,
-      maxTempUnit: String?,
-      minApparentTempUnit: String?,
-      maxApparentTempUnit: String?,
-      maxWindSpeedUnit: String?,
-      date: LocalDate,
-    ): DailyWeather {
+  fun mapToDomain(
+    weatherCode: Int,
+    maxTemp: Double,
+    minTemp: Double,
+    maxApparentTemp: Double?,
+    minApparentTemp: Double?,
+    maxWindSpeed: Double?,
+    minTempUnit: String?,
+    maxTempUnit: String?,
+    minApparentTempUnit: String?,
+    maxApparentTempUnit: String?,
+    maxWindSpeedUnit: String?,
+    date: LocalDate,
+  ): DailyWeather {
+    return DailyWeather(
+      maxTemp = maxTemp,
+      maxTempUnit = maxTempUnit.orDefaultUnit(),
+      minTemp = minTemp,
+      minTempUnit = minTempUnit.orDefaultUnit(),
+      maxApparentTemp = maxApparentTemp,
+      maxApparentTempUnit = maxApparentTempUnit.orDefaultUnit(),
+      minApparentTemp = minApparentTemp,
+      minApparentTempUnit = minApparentTempUnit.orDefaultUnit(),
+      condition = mapWeatherCondition(weatherCode),
+      maxWindSpeed = maxWindSpeed,
+      maxWindSpeedUnit = maxWindSpeedUnit.orDefaultUnit(),
+      date = date,
+    )
+  }
 
-      val weatherCondition =
-        when (val dataWeatherCondition = WeatherCondition.fromCode(weatherCode)) {
-          is WeatherCondition.Cloudy -> com.itstanany.domain.weather.models.WeatherCondition.Cloudy(
-            dataWeatherCondition.description
-          )
+  private fun mapWeatherCondition(weatherCode: Int): WeatherCondition {
+    return when (val dataWeatherCondition =
+      com.itstanany.data.weather.models.WeatherCondition.fromCode(weatherCode)) {
+      is com.itstanany.data.weather.models.WeatherCondition.Cloudy -> WeatherCondition.Cloudy(
+        dataWeatherCondition.description
+      )
 
-          is WeatherCondition.Rainy -> {
-            com.itstanany.domain.weather.models.WeatherCondition.Rainy(
-              dataWeatherCondition.description
-            )
-          }
+      is com.itstanany.data.weather.models.WeatherCondition.Rainy -> WeatherCondition.Rainy(
+        dataWeatherCondition.description
+      )
 
-          is WeatherCondition.Sunny -> {
-            com.itstanany.domain.weather.models.WeatherCondition.Sunny(
-              dataWeatherCondition.description
-            )
-          }
-        }
-      return DailyWeather(
-        maxTemp = maxTemp,
-        maxTempUnit = maxTempUnit ?: "Unit Unavailable",
-        minTemp = minTemp,
-        minTempUnit = minTempUnit ?: "Unit Unavailable",
-        maxApparentTemp = maxApparentTemp,
-        maxApparentTempUnit = maxApparentTempUnit ?: "Unit Unavailable",
-        minApparentTemp = minApparentTemp,
-        minApparentTempUnit = minApparentTempUnit ?: "Unit Unavailable",
-        condition = weatherCondition,
-        maxWindSpeed = maxWindSpeed,
-        maxWindSpeedUnit = maxWindSpeedUnit ?: "Unit Unavailable",
-        date = date,
+      is com.itstanany.data.weather.models.WeatherCondition.Sunny -> WeatherCondition.Sunny(
+        dataWeatherCondition.description
       )
     }
   }
+
+  private fun String?.orDefaultUnit(): String = this ?: "Unit Unavailable"
 }
+
