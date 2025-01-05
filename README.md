@@ -111,12 +111,27 @@ High-level modules depend on abstractions rather than concrete implementations.
 These implementations ensure the codebase remains maintainable, testable, and scalable while reducing coupling between components[2][3].
 
 
+## Technology Stack
 
-### Key Technologies
-- Kotlin Coroutines & Flow for reactive programming
-- Hilt for dependency injection
-- StateFlow for UI state management
-- MockK & JUnit4 for testing
+### UI & Design
+- **Jetpack Compose**: Modern declarative UI toolkit for native Android development, chosen for its improved productivity and modern UI development approach
+- **Material Theming**: Consistent and customizable design system that provides a polished user experience
+
+### Architecture & State Management
+- **ViewModel**: Lifecycle-aware state holder for managing UI data and surviving configuration changes
+- **Kotlin Flows**: Reactive stream processing for handling asynchronous data sequences and UI state updates
+- **Kotlin Coroutines**: Simplified asynchronous programming with improved readability and error handling
+
+### Dependency Injection
+- **Dagger Hilt**: Simplified dependency injection built on top of Dagger, reducing boilerplate and improving build times
+
+### Local Storage
+- **DataStore**: Modern replacement for SharedPreferences, providing type-safe data storage with Kotlin Coroutines support
+
+### Testing
+- **MockK**: Kotlin-first mocking library that provides elegant DSL for test mocking
+- **JUnit**: Industry-standard testing framework for unit testing with comprehensive assertion capabilities
+
 
 ## Project Structure
 
