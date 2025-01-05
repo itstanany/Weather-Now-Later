@@ -67,6 +67,29 @@ val date = DateUtils.parseDate("2024-01-05")
 Built with comprehensive test coverage and clean architecture principles, this library simplifies weather data handling across the application.
 
 
+## CI/CD Pipeline
+
+Implemented continuous integration and deployment using GitHub Actions, featuring:
+
+### Key Features
+- Code linting with ktlint
+- Unit test execution with coverage reporting
+- Automated APK generation (debug/release)
+
+### Why GitHub Actions?
+- Seamless GitHub repository integration
+- Zero configuration overhead
+- Free tier for public repositories
+- Built-in Android support
+
+### Workflow Triggers
+- On push to main branch
+- On pull request creation
+- Manual workflow dispatch
+
+This automation ensures consistent code quality and reliable builds across the development lifecycle.
+
+
 ### Core Components
 - Repository pattern for data management
 - Custom mappers for data transformation
