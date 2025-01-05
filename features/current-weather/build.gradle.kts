@@ -47,8 +47,6 @@ dependencies {
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.appcompat)
   implementation(libs.material)
-  implementation(libs.androidx.navigation.runtime.ktx)
-  implementation(libs.androidx.navigation.testing)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
@@ -80,17 +78,4 @@ dependencies {
   testImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.mockk)
 
-  // AndroidX Test Core and Runner
-  androidTestImplementation(libs.androidx.core)
-  androidTestImplementation(libs.androidx.runner)
-  androidTestImplementation(libs.androidx.rules)
-
-
-  // Hilt Testing
-  androidTestImplementation(libs.hilt.android.testing)
-  ksp(libs.hilt.android.compiler)
-
-  // MockK for Android
-  androidTestImplementation(libs.mockk.android)
-  androidTestImplementation(libs.mockk.agent)
 }
