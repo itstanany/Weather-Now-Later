@@ -1,13 +1,26 @@
 package com.itstanany.core.coroutinedispatcher
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestWatcher
+import org.junit.runner.Description
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class DispatcherProviderImplTest {
   private lateinit var dispatcherProvider: DispatcherProviderImpl
+
+  @get:Rule
+  val mainDispatcherRule = MainDispatcherRule()
 
   @Before
   fun setup() {
@@ -15,7 +28,7 @@ class DispatcherProviderImplTest {
   }
 
   @Test
-  fun `io returns IO dispatcher`() {
+  fun getIODispatcher_shouldReturnIODispatcher() {
     // When
     val dispatcher = dispatcherProvider.io()
 
@@ -24,7 +37,7 @@ class DispatcherProviderImplTest {
   }
 
   @Test
-  fun `main returns Main dispatcher`() {
+  fun getMainDispatcher_shouldReturnMainDispatcher() {
     // When
     val dispatcher = dispatcherProvider.main()
 
@@ -33,7 +46,7 @@ class DispatcherProviderImplTest {
   }
 
   @Test
-  fun `default returns Default dispatcher`() {
+  fun getDefaultDispatcher_shouldReturnDefaultDispatcher() {
     // When
     val dispatcher = dispatcherProvider.default()
 
@@ -42,7 +55,7 @@ class DispatcherProviderImplTest {
   }
 
   @Test
-  fun `dispatchers are not the same`() {
+  fun getAllDispatchers_shouldReturnDifferentInstances() {
     // When
     val ioDispatcher = dispatcherProvider.io()
     val mainDispatcher = dispatcherProvider.main()
@@ -55,3 +68,16 @@ class DispatcherProviderImplTest {
   }
 }
 
+class MainDispatcherRule : TestWatcher() {
+  private val testDispatcher = StandardTestDispatcher()
+
+  @OptIn(ExperimentalCoroutinesApi::class)
+  override fun starting(description: Description) {
+    Dispatchers.setMain(testDispatcher)
+  }
+
+  @OptIn(ExperimentalCoroutinesApi::class)
+  override fun finished(description: Description) {
+    Dispatchers.resetMain()
+  }
+}

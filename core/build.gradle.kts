@@ -50,4 +50,17 @@ dependencies {
 
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
+
+  implementation(libs.jetbrains.kotlinx.coroutines.core)
+  implementation(libs.kotlinx.coroutines.android)
+
+  testImplementation(libs.robolectric)
+  androidTestImplementation(libs.robolectric)
+
+  testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+
+  androidTestImplementation(libs.androidx.runner)
+  androidTestImplementation(libs.androidx.rules)
+  androidTestImplementation(libs.androidx.junit)
+  androidTestImplementation(libs.jetbrains.kotlinx.coroutines.test)
 }
