@@ -29,6 +29,7 @@ dependencies {
 
   // Testing
   testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+  testImplementation(libs.turbine)
 
   // MockK for unit testing
   testImplementation(libs.mockk)
